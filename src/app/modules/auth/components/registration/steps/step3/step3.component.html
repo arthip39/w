@@ -1,0 +1,153 @@
+<div class="pb-10 pb-lg-12">
+  <h2 class="fw-bolder text-dark">
+    {{ "AUTH.ADDRESS.ADDRESS_DETAILS" | translate }}
+  </h2>
+</div>
+<!--จังหวัด-->
+<div>
+  <div [formGroup]="form">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold required">{{
+          "AUTH.ADDRESS.PROVINCE" | translate
+        }}</label>
+        <kendo-dropdownlist
+          [data]="lsProvince"
+          class="form-control-lg form-control-solid custom-fill-mode"
+          [defaultItem]="{
+            label: '--Select province--',
+            value: ''
+          }"
+          textField="label"
+          valueField="value"
+          [valuePrimitive]="true"
+          formControlName="Province"
+          (valueChange)="provinceOnChange()"
+        >
+        </kendo-dropdownlist>
+        <div
+          *ngIf="
+            form.get('Province')?.hasError('required') &&
+            form.get('Province')?.touched
+          "
+          class="fv-plugins-message-container invalid-feedback"
+        >
+          {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+        </div>
+      </div>
+      <!--อำเภอ-->
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold required">{{
+          "AUTH.ADDRESS.DISTRICT" | translate
+        }}</label>
+        <kendo-dropdownlist
+          [data]="lsDistrict"
+          class="form-control-lg form-control-solid custom-fill-mode"
+         
+          [defaultItem]="{
+            label: '--Select district--',
+            value: ''
+          }"
+          textField="label"
+          valueField="value"
+          [valuePrimitive]="true"
+          formControlName="District"
+          (valueChange)="districtOnChange()"
+        >
+        </kendo-dropdownlist>
+        <div
+          *ngIf="
+            form.get('District')?.hasError('required') &&
+            form.get('District')?.touched
+          "
+          class="fv-plugins-message-container invalid-feedback"
+        >
+          {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+        </div>
+      </div>
+    </div>
+    <!--ตำบล-->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold required">{{
+          "AUTH.ADDRESS.SUBDISTRICT" | translate
+        }}</label>
+        <kendo-dropdownlist
+          [data]="lsSubDistrict"
+          class="form-control-lg form-control-solid custom-fill-mode"
+          
+          [defaultItem]="{
+            label: '--Select subdistrict--',
+            value: ''
+          }"
+          textField="label"
+          valueField="value"
+          [valuePrimitive]="true"
+          formControlName="SubDistrict"
+        >
+        </kendo-dropdownlist>
+        <div
+          *ngIf="
+            form.get('SubDistrict')?.hasError('required') &&
+            form.get('SubDistrict')?.touched
+          "
+          class="fv-plugins-message-container invalid-feedback"
+        >
+          {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+        </div>
+      </div>
+      <!--รหัสไปรณีย์-->
+      <div class="col-md-6 mb-3">
+        <label class="form-label fw-bold required">{{
+          "AUTH.ADDRESS.ZIPCODE" | translate
+        }}</label>
+        <kendo-textbox
+          class="form-control-lg form-control-solid custom-fill-mode"
+          placeholder="e.g. 12310"
+          formControlName="Zipcode"
+          [maxlength]="5"
+          [clearButton]="true"
+        >
+        </kendo-textbox>
+
+        <div
+          *ngIf="
+            form.get('Zipcode')?.hasError('required') &&
+            form.get('Zipcode')?.touched
+          "
+          class="fv-plugins-message-container invalid-feedback"
+        >
+          {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+        </div>
+        <div
+          *ngIf="form.get('Zipcode')?.hasError('pattern')"
+          class="fv-plugins-message-container invalid-feedback"
+        >
+          {{ "AUTH.VALIDATION.INVALID_ZIPCODE" | translate }}
+        </div>
+      </div>
+    </div>
+    <!--Address description กรอกที่อยู่เพิ่มเติม-->
+    <div class="fv-row mb-10">
+      <label class="form-label fw-bold">{{
+        "AUTH.ADDRESS.ADDRESS_DESCRIPTION" | translate
+      }}</label>
+      <kendo-formfield>
+        <kendo-textarea
+          class="form-control-lg form-control-solid custom-fill-mode"
+          [maxlength]="255"
+          placeholder='{{"AUTH.ADDRESS.ADDRESS_DESCRIPTION_HOLDER" | translate}}'
+          formControlName="AddressDescription"
+        >
+        </kendo-textarea>
+
+        <kendo-formerror
+          >{{
+            "AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate
+          }}
+          255</kendo-formerror
+        >
+      </kendo-formfield>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<a
+  class="card border border-2 border-gray-300 border-hover" 
+  
+>
+<!-- /#/branch/overview -->
+
+  <div class="card-header border-0 pt-9">
+    <!-- <div class="card-title m-0">
+      <div class="symbol symbol-50px w-50px bg-light">
+        <img [src]="icon" alt="card2" class="p-3" />
+      </div>
+    </div> -->
+    <!-- class="card-toolbar" -->
+    <div class="card-title m-0">
+      <span
+        class="badge fw-bolder me-auto px-4 py-3"
+        [ngClass]="'badge-light-' + badgeColor"
+      >
+        {{ status }}
+        <!-- {{ id }} -->
+      </span>
+    </div>
+
+    <div class="card-toolbar" *ngIf="date !== ''">
+      <button
+        class="
+          btn btn-sm btn-icon btn btn-outline-light text-primary
+        "
+        data-kt-menu-trigger="click"
+        data-kt-menu-placement="bottom-end"
+        data-kt-menu-flip="top-end"
+      >
+        <i class="bi bi-three-dots fs-3"></i>
+      </button>
+      <app-dropdown-menu1></app-dropdown-menu1>
+    </div>
+
+  </div>
+
+  <div class="card-body p-9">
+
+    <div class="fs-3 fw-bolder text-dark" *ngIf="title.length > 35">{{ title.substring(0,35) }}...</div>
+    <div class="fs-3 fw-bolder text-dark" *ngIf="title.length <= 35">{{ title }}</div>
+    
+    <p class="text-gray-400 fw-bold fs-5 mt-1 mb-7" *ngIf="description.length > 90">{{ description.substring(0,90) }}...</p>
+    <p class="text-gray-400 fw-bold fs-5 mt-1 mb-7" *ngIf="description.length <= 90">{{ description }}</p>
+
+    <br>
+    <div class="d-flex flex-wrap" *ngIf="date !== ''">
+      <div 
+        class="
+          border border-gray-300 border-dashed
+          rounded
+          min-w-125px
+          py-3
+          px-4
+          me-7
+          mb-3
+        "
+      >
+        <div class="fs-6 text-gray-800 fw-bolder">{{ date | date:'yyyy-MM-dd' }}</div>
+        <div class="fw-bold text-gray-400">Due Date</div>
+      </div>
+
+      <!-- <div
+        class="
+          border border-gray-300 border-dashed
+          rounded
+          min-w-125px
+          py-3
+          px-4
+          mb-3
+        "
+      >
+        <div class="fs-6 text-gray-800 fw-bolder">{{ budget }}</div>
+        <div class="fw-bold text-gray-400">Budget</div>
+      </div> -->
+    </div>
+    <!-- ngbTooltip="This project completed" -->
+    <div *ngIf="date == ''" class="h-4px w-100 bg-light mb-5" >
+      <div
+        class="rounded h-4px"
+        [ngClass]="'bg-' + statusColor"
+        role="progressbar"
+        [style.width]="progress + '%'"
+      ></div>
+    </div>
+
+    <app-user-list [users]="users"></app-user-list>
+  </div>
+</a>

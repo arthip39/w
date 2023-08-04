@@ -1,0 +1,200 @@
+<div class="card mb-5 mb-xl-10">
+    <div
+      class="card-header border-0 cursor-pointer"
+      role="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#kt_account_profile_details"
+      aria-expanded="true"
+      aria-controls="kt_account_profile_details">
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">{{"AUTH.EDUCATION.TITLE" | translate}}</h3>
+      </div>
+      <a
+        href="/#/master/profile/overview"
+        class="btn btn-primary align-self-center">
+        {{"ALERT.BUTTON.CANCEL" | translate}}
+      </a>
+    </div>
+    <div id="kt_account_profile_details" class="collapse show">
+      <form novalidate="" class="form" >
+        <div class="card-body border-top p-9">
+          <div class="mx-20">
+            <label class="col-lg-5 col-form-label fw-bold
+                        fs-6">{{"AUTH.EDUCATION.HEAD" | translate}}</label>
+            <div class="row" *ngFor="let education of lsUser | async ; let i = index">
+              <div class="row mb-6">
+                <div class="col-md-4 fv-row">
+                  <!-- {{selectedDegree | json}} -->
+                  <kendo-dropdownlist
+                    class="form-control-solid custom-fill-mode"
+                    size="large"
+                    [data]="lsDegree"
+                    [(ngModel)]="education.degreeId"
+                    name="selectedDegree{{i}}"
+                    #selectedDegreeControl="ngModel"
+                    [required]="true"
+                    [defaultItem]="
+                    {
+                    label: '--Select Degree--',
+                    value: ''
+                    }"
+                    textField="label"
+                    valueField="value"
+                    [ngModelOptions]="{standalone: true}"
+                    [valuePrimitive]="true"
+                    (valueChange)="education.academyId='';onValueChange(education)"
+                    kendoValidator>
+                  </kendo-dropdownlist>
+                  <div *ngIf="selectedDegreeControl.invalid && (selectedDegreeControl.dirty ||
+                  selectedDegreeControl.touched)" >
+                    <div *ngIf="selectedDegreeControl.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                  </div>
+          
+                </div>
+                <div class="col-md-7 fv-row">
+                  <kendo-dropdownlist
+                    class="form-control-solid custom-fill-mode"
+                    size="large"
+                    [data]="findAcademy(education.degreeId)"
+                    [(ngModel)]="education.academyId"
+                    name="selectedAcademy"
+                    #academyControl="ngModel"
+                    
+                    [disabled]="education.degreeId == null || education.degreeId == '' "
+                    
+                    [required]="true"
+                    [defaultItem]="
+                    {
+                    label: '--Select Academy--',
+                    value: ''
+                    }"
+                    textField="label"
+                    valueField="value"
+                    (valueChange)="onValueChange(education)"
+                    [ngModelOptions]="{standalone: true}"
+                    [valuePrimitive]="true"
+                    kendoValidator>
+                    <ng-container *ngIf="academyControl.invalid && academyControl.dirty">
+                      <div class="invalid-feedback">
+                        <div *ngIf="academyControl.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                      </div>
+          
+                    </ng-container>
+                  </kendo-dropdownlist>
+          
+                  <div *ngIf="academyControl.invalid && (academyControl.dirty ||
+                  academyControl.touched)" >
+                    <div *ngIf="academyControl.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                  </div>
+                  
+                </div>
+                <div class="col-md-1 fv-row">
+                  <div class="position-relative">
+            
+                    <button type="button" class="btn btn-light btn-sm " *ngIf="i!=0" (click)="deleteTask(i,education)">
+                    <span id="boot-icon" class="bi bi-x" style="font-size: 13px; -webkit-text-stroke-width: 2px; border: hidden; color: rgb(255, 0, 0);"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-6">
+                <div class="col-md-9 fv-row">
+                  <div class="position-relative form-control-solid custom-fill-mode">
+                      <kendo-textbox
+                        class="form-control-solid custom-fill-mode"
+                        size="large"
+                        [(ngModel)]="education.faculty"
+                        name="faculty"
+                        #facultyControl="ngModel"
+                        placeholder='{{"AUTH.EDUCATION.FACULTY" | translate}}'
+                        pattern="{{ LETTERS_AND_SPACES_PATTERN.source }}"
+                        [maxlength]="100"
+                        fillMode="outline"
+                        [ngModelOptions]="{standalone: true}"
+                        (valueChange)="onValueChange(education)"
+                        [clearButton]="true"
+                        kendovalidator>
+                      </kendo-textbox>
+                      <div *ngIf="facultyControl.invalid && facultyControl.dirty">
+                        <div *ngIf="facultyControl.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}</div>
+                      </div>
+                  </div >
+          
+                  <!-- <div
+                    class="fv-plugins-message-container invalid-feedback"
+                    *ngIf="value.faculty == '' " >
+                    {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+                  </div> -->
+                  
+                </div>
+                <div class="col-md-2 fv-row">
+                  <div class="position-relative form-control-solid custom-fill-mode">
+                    <kendo-numerictextbox
+                      class="form-control-solid custom-fill-mode"
+                      size="large"
+                      #gpaControl="ngModel"
+                      name="gpa"
+                      [(ngModel)]="education.gpa"
+                      placeholder='{{"AUTH.EDUCATION.GPA" | translate}}'
+                      pattern="{{ GPA_PATTERN.source }}"
+                      [min]="0"
+                      [max]="4"
+                      [maxlength]="4"
+                      fillMode="outline"
+                      (valueChange)="onValueChange(education)"
+                      [ngModelOptions]="{standalone: true}"
+                      [spinners]="false"
+                      required
+                      >
+                    </kendo-numerictextbox>
+                    <div *ngIf="gpaControl.invalid && gpaControl.dirty">
+                      <div *ngIf="gpaControl.errors?.pattern">{{"AUTH.VALIDATION.INVALID_GPA" | translate}}</div>
+                    </div>
+                  <div
+                  class="fv-plugins-message-container invalid-feedback"
+                  *ngIf="education.gpa == undefined && gpaControl.dirty " >
+                  {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+                  </div>
+                    
+                  </div>
+                </div>
+                
+              </div>
+              
+              <div class="p-8">
+                <hr width="950">
+              </div>
+
+            </div>
+            <div class="row ">
+              <div class="col-md-3" *ngIf="lsUser | async as _user">
+                <button class="btn btn-primary btn-sm" [disabled]="_user.length >= MAX_EDUCATION_TASKS" (click)="addNewTask()">{{"ALERT.BUTTON.NEWTASK" | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end py-6 px-9">
+          <button 
+            type="button"
+            class="btn btn-success"
+            [disabled]="isLoading || saveDisable"
+            (click)="saveSettings()"
+            >
+            
+            <ng-container *ngIf="!isLoading">{{"ALERT.BUTTON.SAVE" | translate}}</ng-container>
+            <ng-container *ngIf="isLoading" >
+              <span class="indicator-progress" [style.display]="'block'">
+                {{"ALERT.BUTTON.WAIT" | translate}}
+                <!-- Save Changes -->
+                <span 
+                  class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+            </ng-container>
+          </button>
+          
+  
+        </div>
+      </form>
+    </div>
+  </div>
+  

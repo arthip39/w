@@ -1,0 +1,354 @@
+<div class="d-flex flex-wrap flex-stack mb-6">
+  <h1 class="fw-bolder my-2">
+    Branch
+    <!-- <span class="fs-6 text-gray-400 fw-bold ms-1">Active</span> -->
+  </h1>
+
+  <div class="d-flex flex-wrap my-2">
+    <div class="me-4">
+      <kendo-dropdownlist
+      class="dropdown-active"
+      [data]="[{
+        label:'InActive',
+        value:'InActive'
+      }]"
+      [defaultItem]="{
+        label:'Active',
+        value:'Active'
+      }"
+      textField="label"
+      valueField="value"
+      required
+      (valueChange)="changeActive($event)"
+      [valuePrimitive]="true"
+
+      >
+
+      </kendo-dropdownlist>
+    </div>
+    <a
+      (click)="open()"
+      class="btn btn-primary btn-sm cursor-pointer"
+      data-bs-toggle="modal"
+      data-bs-target="#kt_modal_create_project">
+      New Branch
+    </a>
+  </div>
+</div>
+
+<div class="row g-6 g-xl-9">
+  <div class="col-md-6 col-xl-4" *ngFor="let sub of lsSubCompany | async ; let
+    i=
+    index">
+    
+    <app-card2 *ngIf="sub.active === true" 
+    
+      badgeColor="primary"
+      status="Active"
+      statusColor="primary"
+      [title]="sub.subCompanyName"
+      description="CRM App application to HR efficiency"
+      [progress]="50"
+      [users]="users2"
+      [routerLink]="['/master/branch',sub.subCompanyId]"
+      >
+    </app-card2>
+    <!-- [routerLink]="['/master/branch']" [queryParams]="{prop:sub.subCompanyId}" -->
+
+    <app-card2 *ngIf="sub.active === false"
+      badgeColor="danger"
+      status="InActive"
+      statusColor="primary"
+      [title]="sub.subCompanyName"
+      description="CRM App application to HR efficiency"
+      [progress]="50"
+      [users]="users2"
+      [routerLink]="['/master/company/branch']"
+      >
+    </app-card2>
+  </div>
+</div>
+
+<div class="d-flex flex-stack flex-wrap pt-10">
+  <div class="fs-6 fw-bold text-gray-700">Showing 1 to 10 of 50 entries</div>
+  <ul class="pagination">
+    <li class="page-item previous">
+      <a class="page-link cursor-pointer">
+        <i class="previous"></i>
+      </a>
+    </li>
+
+    <li class="page-item active">
+      <a class="page-link cursor-pointer"> 1 </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link cursor-pointer"> 2 </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link cursor-pointer"> 3 </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link cursor-pointer"> 4 </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link cursor-pointer"> 5 </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link cursor-pointer"> 6 </a>
+    </li>
+
+    <li class="page-item next">
+      <a class="page-link cursor-pointer">
+        <i class="next"></i>
+      </a>
+    </li>
+  </ul>
+
+
+</div>
+<!-- style="margin: 30px; text-align: center;" -->
+<div class="example-wrapper" style="position: absolute; z-index:1" *ngIf="newSub as _user">
+  <kendo-dialog
+    *ngIf="opened"
+    autoFocusedElement="#username"
+    title="Branch"
+    (close)="close('close')"
+    [minWidth]="400"
+    [width]="600">
+    <div style="margin: 30px;">
+      <p class="required">Name</p>
+
+      <kendo-textbox
+        class=" form-control-solid custom-fill-mode"
+        placeholder="Enter your branch name"
+        [(ngModel)]="_user.subCompanyName"
+        [ngModelOptions]="{standalone: true}"
+        [maxlength]="80"
+        (valueChange)="checkButton()"
+        >
+      </kendo-textbox>
+
+    </div>
+
+    <div style="margin: 30px;">
+      <p class="required">Address</p>
+
+      <kendo-textbox
+        class=" form-control-solid custom-fill-mode"
+        placeholder="Address details (optional)"
+        [(ngModel)]="_user.addressDescription"
+        [ngModelOptions]="{standalone: true}"
+        [maxlength]="255"
+        (valueChange)="checkButton()">
+      </kendo-textbox>
+
+      <div class="row pt-3">
+        <div class="col-md-6">
+          <kendo-dropdownlist
+            class=" form-control-solid custom-fill-mode"
+            #province="ngModel"
+            [data]="lsProvince"
+            [(ngModel)]="_user.provinceId"
+            [defaultItem]="{
+            label: '-- Select Province --',
+            value: ''
+            }"
+            textField="label"
+            valueField="value"
+            required
+            [valuePrimitive]="true"
+            [ngModelOptions]="{standalone: true}"
+            (valueChange)="_user.districtId= '' || _user.subdistrictId= '' ">
+          </kendo-dropdownlist>
+          <div *ngIf="province.invalid && (province.dirty ||
+            province.touched)">
+            <div *ngIf="province.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+              | translate}}</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <kendo-dropdownlist
+            class=" form-control-solid custom-fill-mode"
+            #district="ngModel"
+            [data]="lsDistrict(_user.provinceId)"
+            [(ngModel)]="_user.districtId"
+            [disabled]="_user.provinceId === '' || _user.provinceId === null "
+            [defaultItem]="{
+            label: '-- Select District --',
+            value: ''
+            }"
+            textField="label"
+            valueField="value"
+            required
+            [valuePrimitive]="true"
+            [ngModelOptions]="{standalone: true}"
+            (valueChange)="_user.subdistrictId= ''">
+          </kendo-dropdownlist>
+          <div *ngIf="district.invalid && (district.dirty ||
+            district.touched)">
+            <div *ngIf="district.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+              | translate}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row pt-3">
+        <div class="col-md-6">
+          <kendo-dropdownlist
+            class=" form-control-solid custom-fill-mode"
+            #subdistrict="ngModel"
+            [data]="lsSubDistrict(_user.districtId)"
+            [(ngModel)]="_user.subdistrictId"
+            [disabled]="_user.districtId === '' || _user.districtId === null"
+            [defaultItem]="{
+            label: '-- Select Subdistrict --',
+            value: ''
+            }"
+            textField="label"
+            valueField="value"
+            required
+            [valuePrimitive]="true"
+            [ngModelOptions]="{standalone: true}"
+            (valueChange)="checkButton()">
+          </kendo-dropdownlist>
+          <div *ngIf="subdistrict.invalid && (subdistrict.dirty ||
+            subdistrict.touched)">
+            <div *ngIf="subdistrict.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+              | translate}}</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <kendo-maskedtextbox
+            class="form-control-solid custom-fill-mode"
+            #zipcode="ngModel"
+            mask="00000"
+            [(ngModel)]="_user.zipcode"
+            [ngModelOptions]="{standalone: true}"
+            required
+            (valueChange)="checkButton()">
+          </kendo-maskedtextbox>
+          <kendo-formhint align="start">Hint: Zipcode (e.g. 73170)</kendo-formhint>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 30px;">
+      <div class="row">
+        <p>Contact</p>
+        <div class="col-lg-6">
+          <kendo-maskedtextbox
+              #phone="ngModel"
+              class="form-control-solid custom-fill-mode"
+              mask="(999)-0000-000"
+              pattern="{{ PHONE.source }}"
+              [(ngModel)]="_user.phone"
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              >
+            </kendo-maskedtextbox>
+          <kendo-formhint align="start">Hint: Your active phone number</kendo-formhint>
+        </div>
+        <div class="col-lg-6">
+          <kendo-textbox
+              #email="ngModel"
+              class="form-control-solid custom-fill-mode"
+              placeholder='{{"AUTH.INPUT.EMAIL" | translate}}'
+              pattern="{{ EMAIL_VALADATOR.source }}"
+              [maxlength]="80"
+              [(ngModel)]='_user.email'
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              [maxlength]="100"
+              >
+            </kendo-textbox>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+              >
+              <div *ngIf="email.errors?.pattern">{{"AUTH.VALIDATION.EMAIL_INCORRECT"
+                | translate}}</div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div style="margin: 30px;">
+      <p>Social Media</p>
+      <div class="row">
+        <div class="col-md-6">
+          <kendo-textbox
+            #facebook="ngModel"
+            class=" form-control-solid custom-fill-mode"
+            placeholder="Facebook"
+            pattern="{{ FACEBOOK_VALIDATOR.source }}"
+            [(ngModel)]="_user.facebook"
+            [ngModelOptions]="{standalone: true}"
+            (valueChange)="checkButton()"
+            [maxlength]="100"
+            >
+          </kendo-textbox>
+          <div *ngIf="facebook.invalid && (facebook.dirty || facebook.touched)">
+            <div *ngIf="facebook.errors?.pattern">ชื่อเฟสไม่ได้เขียนงี้</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <kendo-textbox
+            #line="ngModel"
+            class=" form-control-solid custom-fill-mode"
+            placeholder='{{"AUTH.INPUT.SOCIAL.LINE" | translate}}'
+            pattern="{{ LINE_VALADATOR.source }}"
+            [maxlength]="80"
+            [(ngModel)]='_user.lineId'
+            (valueChange)="checkButton()"
+            [ngModelOptions]="{standalone: true}"
+            [maxlength]="100"
+            >
+          </kendo-textbox>
+          <div *ngIf="line.invalid && (line.dirty || line.touched)">
+            <div *ngIf="line.errors?.pattern">{{"AUTH.VALIDATION.INVALID_LINE"
+              | translate}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <kendo-dialog-actions>
+      <div class="row">
+        <div class="col-6 d-grid gap-2 d-md-flex justify-content-md-end
+          btn-block">
+          <button kendoButton (click)="close('cancel')">Cancel</button>
+          <!-- <button kendoButton (click)="saveSettings()">print</button> -->
+
+        </div>
+        <div class="col-6 d-grid gap-2 d-md-block btn-block">
+          <button
+            type="button"
+            class="btn btn-success"
+            [disabled]="isLoading || saveDisable"
+            (click)="saveSettings()">
+
+            <ng-container *ngIf="!isLoading">Submit</ng-container>
+            <ng-container *ngIf="isLoading">
+              <span class="indicator-progress" [style.display]="'block'">
+                {{"ALERT.BUTTON.WAIT" | translate}}
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+            </ng-container>
+          </button>
+
+        </div>
+      </div>
+
+    </kendo-dialog-actions>
+  </kendo-dialog>
+</div>

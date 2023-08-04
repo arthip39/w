@@ -1,0 +1,82 @@
+<!-- begin::Header -->
+<div *ngIf="lsUser | async as _user" class="card-header border-0 pt-5">
+  <h3 class="card-title align-items-start flex-column">
+    <span class="card-label fw-bolder fs-3 mb-1">Language</span>
+    <span class="text-muted fw-bold fs-7">Available in {{ _user.length }} languages</span>
+  </h3>
+  <div class="card-toolbar">
+    <!-- begin::Menu -->
+    <a
+      routerLink="/master/profile/setting"
+      class="btn btn-primary align-self-center">
+      Edit Language
+    </a>
+ 
+  </div>
+</div>
+<!-- end::Header -->
+<!-- begin::Body -->
+<div class="card-body py-3">
+  <!-- begin::Table container -->
+    <!-- begin::Table -->
+    <table class="table align-middle gs-0 gy-5">
+      <!-- begin::Table head -->
+      <thead>
+        <tr>
+          <th class="p-0 w-50px"></th>
+          <th class="p-0 min-w-200px"></th>
+          <th class="p-0 min-w-100px"></th>
+          <th class="p-0 min-w-40px"></th>
+        </tr>
+      </thead>
+      <!-- end::Table head -->
+      <!-- begin::Table body -->
+      <tbody *ngFor="let language of lsUser | async">
+        <tr>
+          <th>
+            <div class="symbol symbol-50px me-2">
+              <span class="symbol-label">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/9283/9283216.png"
+                  class="h-50 align-self-center"
+                  alt=""
+                  />
+              </span>
+            </div>
+          </th>
+          <td>
+            <a 
+              href="#"
+              class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+              {{ language.name }}
+            </a>
+          </td>
+          <td>
+            <div class="d-flex flex-column w-100 me-2">
+              <div class="d-flex flex-stack mb-2">
+                <span *ngIf="language.score == '4'" class="text-muted me-2 fs-7 fw-bold" 
+                >
+                Very good
+              </span>
+              <span *ngIf="language.score == '3'" class="text-muted me-2 fs-7 fw-bold" 
+                >
+                Good
+              </span>
+              <span *ngIf="language.score == '2'" class="text-muted me-2 fs-7 fw-bold" 
+                >
+                Medium
+              </span>
+              <span *ngIf="language.score == '1'" class="text-muted me-2 fs-7 fw-bold" 
+                >
+                Fairly
+              </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <!-- end::Table body -->
+    </table>
+    <!-- end::Table -->
+  <!-- end::Table container -->
+</div>

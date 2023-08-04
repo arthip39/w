@@ -1,0 +1,175 @@
+<div class="pb-10 pb-lg-15">
+  <h1 class="fw-bolder text-dark">{{"AUTH.ABILITY.TITLE" | translate}}</h1>
+  <br>
+</div>
+
+<div>
+  <!--ภาษา-->
+  <label class="d-flex align-items-center fs-6 fw-bold form-label mb-8">
+    <span>{{"AUTH.ABILITY.LANGUAGEHEAD" | translate}}</span>
+  </label>
+  <label class="fs-6 fw-bold form-label col-md-4 required">
+    {{"AUTH.ABILITY.LANGUAGE" | translate}}
+  </label>
+  <label class="fs-6 fw-bold form-label col-md-6 required " style="transform: translateX(40px);">
+    {{"AUTH.ABILITY.LANGUAGELEVEL" | translate}}
+  </label>
+  <!--Textbox ชื่อภาษา-->
+  <div class="row" *ngFor="let value of language;let i = index">
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <kendo-formfield>
+          <kendo-textbox
+            class="form-control-solid custom-fill-mode"
+            size="large"
+            #languageName="ngModel"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="value.languageName"
+            pattern="{{ LANGUAGE_PATTERN.source }}"
+            [maxlength]="50"
+            fillMode="solid"
+            placeholder='{{"AUTH.INPUT.LANGUAGE_HOLDER" | translate}}'
+            [clearButton]="true"
+            (valueChange)="languageOnChange()">
+          </kendo-textbox>
+
+        </kendo-formfield>
+      </div>
+      <!--ปุ่ม Radiobutton Language Level ระดับภาษา-->
+      <div class="col-md-6" style="transform: translateX(30px);">
+        <form class="pt-3">
+          <label class="radio-container">
+            <input (change)="languageOnChange()" required type="radio" id="bestpoint{{i}}" name="languageScore{{i}}" value='4' class="mx-1 radio-border" kendoRadioButton [(ngModel)]="value.languageScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="bestpoint{{i}}">{{"AUTH.ABILITY.VERYGOOD" | translate}}</label>
+          </label>
+          <label class="radio-container">
+            <input (change)="languageOnChange()" required type="radio" id="goodpoint{{i}}" name="languageScore{{i}}" value='3' class="mx-1 radio-border" kendoRadioButton [(ngModel)]="value.languageScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="goodpoint{{i}}">{{"AUTH.ABILITY.GOOD" | translate}}</label>
+          </label>
+          <label class="radio-container">
+            <input (change)="languageOnChange()" required type="radio" id="middlepoint{{i}}" name="languageScore{{i}}" value='2' class="mx-1 radio-border" kendoRadioButton [(ngModel)]="value.languageScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="middlepoint{{i}}">{{"AUTH.ABILITY.MIDDLE" | translate}}</label>
+          </label>
+          <label class="radio-container">
+            <input (change)="languageOnChange()" required type="radio" id="fairlypoint{{i}}" name="languageScore{{i}}" value='1' class="mx-1 radio-border" kendoRadioButton [(ngModel)]="value.languageScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="fairlypoint{{i}}">{{"AUTH.ABILITY.FAIRLY" | translate}}</label>
+          </label>
+        </form>
+      </div>
+      <!--ปุ่ม Language Delete button-->
+      <div class="col-md-1 fv-row">
+        <div>
+          <button kendoButton rounded="large" *ngIf="i!=0" (click)="deleteLanguageTask(i)">
+            <span id="boot-icon" class="bi bi-x" style="font-size: 13px; -webkit-text-stroke-width: 2px; border: hidden; color: rgb(255, 0, 0);"></span>
+          </button>
+         
+        </div>
+      </div>
+      <!--Language validation-->
+      <div
+        class="fv-plugins-message-container invalid-feedback"
+        *ngIf="value.languageName == '' && (languageName.dirty || languageName.touched)">
+        {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+      </div>
+        <div *ngIf="languageName.invalid && (languageName.dirty || languageName.touched)">
+        <div *ngIf="languageName.errors?.pattern" class="fv-plugins-message-container invalid-feedback">{{"AUTH.VALIDATION.CHARACTER_SPACE" | translate}}</div>
+      </div>
+      <div class="fv-plugins-message-container invalid-feedback"
+        *ngIf="(value.languageScore == null || value.languageScore == undefined) && (languageName.dirty || languageName.touched)">
+        {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+      </div>
+    </div>
+  </div>
+  <!--ปุ่ม Language Add button-->
+  <div class="row mb-10">
+    <div class="col-md-12">
+      <button kendoButton themeColor="tertiary" [disabled]="language.length >= MAX_LANGUAGE_TASKS" rounded="large" (click)="addNewLanguageTask()">{{"ALERT.BUTTON.NEWTASK" | translate}}</button>
+      <!--<span *ngIf="language.length >= MAX_LANGUAGE_TASKS" class="alert-message alert">
+        {{"AUTH.ABILITY.MAX_LANGUAGE_TASK" | translate}}
+      </span>-->
+    </div>
+  </div>
+  <!--ทักษะ-->
+  <label class="d-flex align-items-center fs-6 fw-bold form-label mb-8">
+    <span>{{"AUTH.ABILITY.SKILLYHEAD" | translate}}</span>
+  </label>
+  <label class="fs-6 fw-bold form-label col-md-4 required">
+    {{"AUTH.ABILITY.SKILL" | translate}}</label>
+  <label class="fs-6 fw-bold form-label col-md-6 required" style="transform: translateX(40px);">
+    {{"AUTH.ABILITY.SKILLLEVEL" | translate}}</label>
+  <!--Textbox ชื่อทักษะ-->
+  <div class="row" *ngFor="let value of skill;let i = index">
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <kendo-formfield>
+          <kendo-textbox
+            class="form-control-solid custom-fill-mode"
+            size="large"
+            #skillname="ngModel"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="value.skillName"
+            [maxlength]="50"
+            fillMode="solid"
+            placeholder='{{"AUTH.INPUT.SKILL_HOLDER" | translate}}'
+            (valueChange)="skillOnChange()"
+            
+            [clearButton]="true">
+          </kendo-textbox>
+
+        </kendo-formfield>
+      </div>
+      <!--ปุ่ม Radiobutton Skill Level ระดับทักษะ-->
+      <div class="col-md-6" style="transform: translateX(30px);">
+        <form class="pt-3">
+          <label class="radio-container">
+            <input (change)="skillOnChange()" required type="radio" id="skillbestpoint{{i}}" name="skillScore{{i}}" value='4' class="mx-1 radio-border"  kendoRadioButton [(ngModel)]="value.skillScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="skillbestpoint{{i}}">{{"AUTH.ABILITY.VERYGOOD" | translate}}</label>
+          </label>
+          <label class="radio-container">
+            <input (change)="skillOnChange()" required type="radio" id="skillgoodpoint{{i}}" name="skillScore{{i}}" value='3' class="mx-1 radio-border"  kendoRadioButton [(ngModel)]="value.skillScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="skillgoodpoint{{i}}">{{"AUTH.ABILITY.GOOD" | translate}}</label>
+          </label>
+          <label class="radio-container">
+            <input (change)="skillOnChange()" required type="radio" id="skillmiddlepoint{{i}}" name="skillScore{{i}}" value='2' class="mx-1 radio-border"  kendoRadioButton [(ngModel)]="value.skillScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="skillmiddlepoint{{i}}">{{"AUTH.ABILITY.MIDDLE" | translate}}</label>
+          </label>
+          <label class="radio-container">
+            <input (change)="skillOnChange()" required type="radio" id="skillfairlypoint{{i}}" name="skillScore{{i}}" value='1' class="mx-1 radio-border"  kendoRadioButton [(ngModel)]="value.skillScore"/>
+            <label class="form-check-label fs-8 fw-bold mx-1 my-label" for="skillfairlypoint{{i}}">{{"AUTH.ABILITY.FAIRLY" | translate}}</label>
+          </label>
+        </form>
+      </div>
+      <!--ปุ่ม Skill Delete button-->
+      <div class="col-md-1 fv-row">
+        <div>
+          <button kendoButton rounded="large" *ngIf="i!=0" (click)="deleteSkillTask(i)">
+            <span id="boot-icon" class="bi bi-x" style="font-size: 13px; -webkit-text-stroke-width: 2px; border: hidden; color: rgb(255, 0, 0);"></span>
+          </button>
+        </div>
+      </div>
+      <!--Skill validation-->
+      <div
+        class="fv-plugins-message-container invalid-feedback"
+        *ngIf="value.skillName == '' && (skillname.dirty || skillname.touched)">
+        {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+      </div>
+      
+        <div *ngIf="skillname.invalid && (skillname.dirty || skillname.touched)"></div>
+        <div *ngIf="skillname.errors?.pattern" class="fv-plugins-message-container invalid-feedback">{{"AUTH.VALIDATION.CHARACTER_SPACE" | translate}}</div>
+     
+      <div class="fv-plugins-message-container invalid-feedback"
+        *ngIf="(value.skillScore == null || value.skillScore == undefined) && (skillname.dirty || skillname.touched)">
+        {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+      </div>
+    </div>
+  </div>
+  <!--ปุ่ม Skill Add button-->
+  <div class="row">
+    <div class="col-md-12">
+      <button kendoButton themeColor="tertiary" [disabled]="skill.length >= MAX_LANGUAGE_TASKS" rounded="large" (click)="addNewSkillTask()">{{"ALERT.BUTTON.NEWTASK" | translate}}</button>
+      <!--<span *ngIf="skill.length >= MAX_SKILL_TASKS" class="alert-message alert">
+        {{"AUTH.ABILITY.MAX_SKILL_TASK" | translate}}
+      </span>-->
+    </div>
+  </div>
+</div>

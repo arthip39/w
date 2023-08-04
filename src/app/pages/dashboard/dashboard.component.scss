@@ -1,0 +1,38 @@
+.input-with-icon {
+  position: relative;
+}
+
+.left-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.custom-size > .k-button {
+  padding: 10px 20px;
+}
+
+.custom-fill-mode {
+  background: #f9f9f9;
+  border-color: #a9a0a0;
+}
+
+.custom-fill-mode-button {
+  background: #e05e85;
+  color: #fbfbfb;
+}
+
+.hover-button:hover {
+  background: #f86994;
+  color: #ffffff;
+}
+
+.k-multiselect {
+  padding-left: 30px;
+}
+
+.fa {
+  font-size: 1.5em;
+}

@@ -1,0 +1,44 @@
+<div class="pb-10 pb-lg-15">
+  <h2 class="fw-bolder text-dark">{{"AUTH.TERMS.HEADER" | translate}}</h2>
+  <br />
+</div>
+
+<div [formGroup]="form">
+  <div class="fv-row">
+    <div class="mb-4">
+      <kendo-textarea 
+      class="custom-fill-mode"
+      resizable="none"
+      [readonly]="true"
+      rounded="medium"
+      fillMode="none"
+      [style.width.px]="100"
+      [rows]="22"
+      [cols]="40"
+
+      [value]="textAreaValue"
+      > 
+      </kendo-textarea>
+    </div>
+    <div class="wrap mb-10">
+      <input
+        class=""
+        type="checkbox"
+        #terms
+        kendoCheckBox
+        size="large"
+        formControlName="formcheckbox"
+        required
+      />
+      <kendo-label class="k-checkbox-label fw-bold" [for]="terms"
+        >{{"AUTH.TERMS.CHECKBOX_ACCEPT" | translate}}</kendo-label
+      >
+    </div>
+    <div
+      *ngIf="
+        form.get('formcheckbox')?.hasError('required') &&
+        form.get('formcheckbox')?.touched
+      "
+    ></div>
+  </div>
+</div>

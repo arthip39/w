@@ -1,0 +1,71 @@
+<div *ngIf="lsUser | async as _user" class="card-header border-0 pt-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label fw-bolder fs-3 mb-1">{{"AUTH.ABILITY.LANGUAGE" | translate}}</span>
+      <span class="text-muted fw-bold fs-7">Available in {{ _user.length }} languages</span>
+    </h3>
+    <div class="card-toolbar">
+      <a
+        routerLink="/master/profile/languagesetting"
+        class="btn btn-primary align-self-center">
+        {{"ALERT.BUTTON.EDIT_LANGUAGE" | translate}}
+      </a>
+   
+    </div>
+  </div>
+  <div class="card-body py-3">
+      <table class="table align-middle gs-0 gy-5">
+        <thead>
+          <tr>
+            <th class="p-0 w-50px"></th>
+            <th class="p-0 min-w-200px"></th>
+            <th class="p-0 min-w-100px"></th>
+            <th class="p-0 min-w-40px"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let language of lsUser | async">
+          <tr>
+            <th>
+              <div class="symbol symbol-50px me-2">
+                <span class="symbol-label">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/9283/9283216.png"
+                    class="h-50 align-self-center"
+                    alt=""
+                    />
+                </span>
+              </div>
+            </th>
+            <td>
+              <a 
+                href="#"
+                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                {{ language.name }}
+              </a>
+            </td>
+            <td>
+              <div class="d-flex flex-column w-100 me-2">
+                <div class="d-flex flex-stack mb-2">
+                  <span *ngIf="language.score == '4'" class="text-success me-2 fs-7 fw-bold" 
+                  >
+                  {{"AUTH.ABILITY.VERYGOOD" | translate}}
+                </span>
+                <span *ngIf="language.score == '3'" class="text-primary me-2 fs-7 fw-bold" 
+                  >
+                  {{"AUTH.ABILITY.GOOD" | translate}}
+                </span>
+                <span *ngIf="language.score == '2'" class="text-warning me-2 fs-7 fw-bold" 
+                  >
+                  {{"AUTH.ABILITY.MIDDLE" | translate}}
+                </span>
+                <span *ngIf="language.score == '1'" class="text-danger me-2 fs-7 fw-bold" 
+                  >
+                  {{"AUTH.ABILITY.FAIRLY" | translate}}
+                </span>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  

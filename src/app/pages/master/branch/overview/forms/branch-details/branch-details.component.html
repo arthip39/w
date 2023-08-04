@@ -1,0 +1,134 @@
+<div *ngIf="sub | async as _sub" class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+    <div class="card-header cursor-pointer">
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">Branch Details</h3>
+      </div>
+  
+      <a
+        [routerLink]="['/master/branch',id,'branchsetting']"
+        class="btn btn-primary align-self-center"
+      >
+      Edit Branch
+      </a>
+    </div>
+  
+    <div  class="card-body p-9">
+      <div class="row mb-7">
+        <label class="col-lg-2 fw-bold text-muted">Branch Name</label>
+  
+        <div class="col-lg-4">
+          <span class="fw-bolder fs-6 text-dark"> {{ _sub.subCompanyName }}</span>
+        </div>
+  
+        <div class="col-lg-2">
+          <span class="col-lg-4 fw-bold text-muted">Address</span>
+        </div>
+  
+        <div class="col-lg-4">
+          <span class="fw-bolder fs-6 text-dark" *ngIf="_sub.addressDescription.length > 45"> {{ _sub.addressDescription.substring(0,45) }}... </span>
+          <span class="fw-bolder fs-6 text-dark" *ngIf="_sub.addressDescription.length <= 45"> {{ _sub.addressDescription }} </span>
+
+        </div>
+  
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-2 fw-bold text-muted">Phone</label>
+  
+        <div class="col-lg-4 fv-row">
+          <span class="fw-bold fs-6"> {{ _sub.phone }} </span>
+        </div>
+  
+        <div class="col-lg-2 fv-row">
+          <span class="col-lg-2 fw-bold text-muted">Province</span>
+        </div>
+  
+        <div class="col-lg-4 fv-row">
+          <span class="fw-bold fs-6"> {{ _sub.provinceName }} </span>
+        </div>
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-2 fw-bold text-muted">Email</label>
+  
+        <div class="col-lg-4 d-flex align-items-center">
+          <span class="fw-bolder fs-6 me-2"> {{ _sub.email }}</span>
+        </div>
+  
+        <div class="col-lg-2 d-flex align-items-center">
+          <span class="col-lg-3 fw-bold text-muted">District</span>
+          <!-- <i
+            class="fas fa-exclamation-circle ms-1 fs-7"
+            data-bs-toggle="tooltip"
+            title="Phone number must be active"
+          ></i> -->
+        </div>
+  
+        <div class="col-lg-4 d-flex align-items-center">
+          <span class="fw-bolder fs-6 me-2"> {{ _sub.districtName }} </span>
+        </div>
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-2 fw-bold text-muted">Facebook</label>
+  
+        <div class="col-lg-4">
+          <a href="#" class="fw-bold fs-6 text-dark text-hover-primary">
+            {{ _sub.facebook }}
+          </a>
+        </div>
+  
+        <div class="col-lg-2">
+          <a class="col-lg-2 fw-bold text-muted">
+            Subdistrict
+          </a>
+        </div>
+  
+        <div class="col-lg-4">
+          <a href="#" class="fw-bold fs-6 text-dark text-hover-primary">
+            {{ _sub.subdistrictName }}
+          </a>
+        </div>
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-2 fw-bold text-muted">
+          Line ID
+          <!-- <i
+            class="fas fa-exclamation-circle ms-1 fs-7"
+            data-bs-toggle="tooltip"
+            title="Country of origination"
+          ></i> -->
+        </label>
+  
+        <div class="col-lg-4">
+          <span class="fw-bolder fs-6 text-dark"> {{ _sub.lineId }} </span>
+        </div>
+  
+        <div class="col-lg-2">
+          <span class="col-lg-2 fw-bold text-muted">Zipcode</span>
+        </div>
+  
+        <div class="col-lg-4">
+          <span class="fw-bolder fs-6 text-dark"> {{ _sub.zipcode }} </span>
+        </div>
+      </div>
+  
+      <!-- <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">{{"AUTH.ADDRESS.SUBDISTRICT" | translate}}</label>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.subDistrict }} </span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="col-lg-3 fw-bold text-muted">{{"AUTH.ADDRESS.ZIPCODE" | translate}}</span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.zipcode }} </span>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  

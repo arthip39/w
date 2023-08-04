@@ -1,0 +1,67 @@
+<div class="col-xxl-12">
+  <div class="card card-xxl-stretch mb-5 mb-xl-8">
+    <div class="card-header border-0 pt-10 py-10">
+      <div class="container-md">
+        <div class="row justify-content-center">
+          <!-- Position Select -->
+          <div class="col-md-5">
+            <div class="input-with-icon">
+              <i class="fa fa-search left-icon"></i>
+              <kendo-multiselect
+                #positionSelect
+                [data]="lsPosition"
+                valueField="positionId"
+                textField="positionName"
+                [checkboxes]="true"
+                [autoClose]="false"
+                placeholder="ค้นหาตำแหน่งงาน"
+                class="custom-fill-mode"
+                rounded="medium"
+                size="large"
+                [tagMapper]="positionTag"
+              >
+              </kendo-multiselect>
+            </div>
+          </div>
+          <!-- Province Select -->
+          <div class="col-md-5">
+            <div class="input-with-icon">
+              <i class="fa fa-location-dot left-icon"></i>
+              <kendo-multiselect
+                #provinceSelect
+                [data]="lsProvince"
+                valueField="value"
+                textField="label"
+                [checkboxes]="true"
+                [autoClose]="false"
+                placeholder="คลิกเพื่อเลือกจังหวัด"
+                class="custom-fill-mode"
+                [tagMapper]="proviceTag"
+                rounded="medium"
+                size="large"
+              >
+              </kendo-multiselect>
+            </div>
+          </div>
+          <!-- FindjobButton -->
+          <div class="col-md-1 custom-size">
+            <kendo-button
+              kendoButton
+              look="outline"
+              class="custom-fill-mode-button fw-bold hover-button"
+              rounded="large"
+              size="none"
+              routerLink="/dashboard/company"
+              routerLinkActive="active"
+              (click)="findjob()"
+            >
+              หางาน
+            </kendo-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,362 @@
+<div class="card mb-5 mb-xl-10">
+    <div
+        class="card-header border-0 cursor-pointer"
+        role="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#kt_account_profile_details"
+        aria-expanded="true"
+        aria-controls="kt_account_profile_details">
+        <div class="card-title m-0">
+            <h1 class="fw-bolder m-0">New Event</h1>
+        </div>
+        <!-- routerLink="/master/profile/overview" -->
+
+        <a
+            [routerLink]="['/master/branch',id,'event']"
+            class="btn btn-primary align-self-center">
+            {{"ALERT.BUTTON.CANCEL" | translate}}
+        </a>
+    </div>
+    <div id="kt_account_profile_details" class="collapse show">
+        <form novalidate="" class="form">
+            <div class="card-body border-top p-9">
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold
+                        fs-6">Event name</label>
+                    <div class="col-lg-8 fv-row">
+                        <kendo-textbox
+                            #name="ngModel"
+                            class="form-control form-control-lg
+                            form-control-solid mb-3
+                            mb-lg-0"
+                            placeholder='Event name'
+                            [maxlength]="60"
+                            [(ngModel)]="event.eventName"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            required>
+                        </kendo-textbox>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" >
+                            <div *ngIf="name.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                            <!-- <div *ngIf="name.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}</div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Property</label>
+                    <div class="col-lg-8 fv-row">
+                        <kendo-textarea
+                            #property="ngModel"
+                            class="form-control form-control-lg
+                            form-control-solid mb-3
+                            mb-lg-0"
+                            placeholder='Property'
+                            [rows]="3"
+                            resizable="auto"
+                            [maxlength]="200"
+                            [(ngModel)]="event.eventProperty"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            required>
+                        </kendo-textarea>
+                        <div *ngIf="property.invalid && (property.dirty || property.touched)" >
+                            <div *ngIf="property.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                            <!-- <div *ngIf="name.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}</div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Hard Skill</label>
+                    <div class="col-lg-8 fv-row">
+                        <kendo-textarea
+                            class="form-control form-control-lg
+                            form-control-solid mb-3
+                            mb-lg-0"
+                            placeholder='Hard Skill'
+                            resizable="auto"
+                            [maxlength]="200"
+                            [(ngModel)]="event.hardskillRequirement"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            >
+                        </kendo-textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Soft Skill</label>
+                    <div class="col-lg-8 fv-row">
+                        <kendo-textarea
+                            class="form-control form-control-lg
+                            form-control-solid mb-3
+                            mb-lg-0"
+                            placeholder='Soft Skill'
+                            [maxlength]="200"
+                            resizable="auto"
+                            [(ngModel)]="event.softskillRequirement"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            >
+                        </kendo-textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Job Description</label>
+                    <div class="col-lg-8 fv-row">
+                        <kendo-textarea
+                            class="form-control form-control-lg
+                            form-control-solid mb-3
+                            mb-lg-0"
+                            placeholder='Description'
+                            resizable="auto"
+                            [maxlength]="200"
+                            [(ngModel)]="event.jobDescription"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            >
+                        </kendo-textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6 required">Working Date/Time</label>
+                    <div class="col-lg-2 fv-row">
+                        <kendo-dropdownlist 
+                            class="form-control-lg form-control-solid mb-3 mb-lg-0"
+                            [data]="listItems"
+                            [(ngModel)]="workTimes.InWorkDay"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                        >
+                        </kendo-dropdownlist>
+                        <kendo-formhint class="text-muted fw-bold" align="start">Start date</kendo-formhint>
+                    </div>
+                    
+                    <div class="col-lg-2 fv-row">
+                        <kendo-dropdownlist 
+                            class="form-control-lg form-control-solid mb-3 mb-lg-0"
+                            [data]="listItems"
+                            [(ngModel)]="workTimes.OutWorkDay"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            >
+
+                        >
+                        </kendo-dropdownlist>
+                        <kendo-formhint class="text-muted fw-bold" align="start">End date</kendo-formhint>
+                    </div>
+
+                    <div class="col-lg-2 fv-row">
+                        <kendo-timepicker 
+                        class="form-control-lg form-control-solid"
+                        [(ngModel)]="workTimes.WorkStartTime"
+                        [ngModelOptions]="{standalone: true}"
+                        (valueChange)="checkButton()"
+                        >
+
+                        </kendo-timepicker>
+                        <kendo-formhint class="text-muted fw-bold" align="start">Start time</kendo-formhint>
+                    </div>
+
+                    <div class="col-lg-2 fv-row">
+                        <kendo-timepicker 
+                        class="form-control-lg form-control-solid"
+                        [(ngModel)]="workTimes.WorkEndTime"
+                        [ngModelOptions]="{standalone: true}"
+                        (valueChange)="checkButton()"
+                        >
+
+                        </kendo-timepicker>
+                        <kendo-formhint class="text-muted fw-bold" align="start">End time</kendo-formhint>
+                    </div>
+
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Scholarship</label>
+                    <div class="col-lg-8 fv-row">
+                        <kendo-numerictextbox
+                            class="form-control form-control-lg
+                            form-control-solid mb-3
+                            mb-lg-0"
+                            placeholder='0'
+                            [maxlength]="10"
+                            required
+                            [spinners]="false"
+                            [(ngModel)]="event.scholarship"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            >
+                        </kendo-numerictextbox>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6">Compensation and Benefits</label>
+                    <div class="col-lg-8 fv-row">
+                        <kendo-textarea
+                            class="form-control form-control-lg
+                            form-control-solid mb-3
+                            mb-lg-0"
+                            [rows]="3"
+                            placeholder='Compensation and Benefits'
+                            resizable="auto"
+                            [maxlength]="200"
+                            [(ngModel)]="event.rewardWelfare"
+                            [ngModelOptions]="{standalone: true}"
+                            (valueChange)="checkButton()"
+                            >
+                        </kendo-textarea>
+                    </div>
+                </div>
+
+                <!-- {{ jobPosition | json }} -->
+
+                <div class="row">
+                    <label class="col-lg-4 col-form-label required fw-bold fs-6">Job Position / Number of Openings</label>
+                    <div class="col-lg-8 fv-row" >
+                        <div class="d-flex mb-3" *ngFor="let event of jobPosition; let i = index">
+                            <div class="col-lg-4 fv-row me-3">
+                                <kendo-dropdownlist
+                                class="form-control-lg form-control-solid mb-3 mb-lg-0"
+                                [data]="lsGroup"
+                                [defaultItem]="
+                                {
+                                label: '-- Select Group --',
+                                value: ''
+                                }"
+                                textField="label"
+                                valueField="value"
+                                [(ngModel)]="event.groupId"
+                                [ngModelOptions]="{standalone: true}"
+                                [valuePrimitive]="true"
+                                (valueChange)="event.positionId='' ; checkButton()"
+                                required
+                                >
+
+                                </kendo-dropdownlist>
+                                <!-- <kendo-textbox 
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" 
+                                    placeholder='Job Position' 
+                                    [maxlength]="80" 
+                                    required>
+                                </kendo-textbox> -->
+                            </div>
+                            <div class="col-lg-6 fv-row me-3" >
+                                <kendo-dropdownlist 
+                                class="form-control-lg form-control-solid mb-3 mb-lg-0"
+                                [data]="findPosition(event.groupId)"
+                                [disabled]="event.groupId === ''"
+                                [defaultItem]="
+                                {
+                                positionName: '-- Select Position --',
+                                positionId: ''
+                                }"
+                                textField="positionName"
+                                valueField="positionId"
+                                [(ngModel)]="event.positionId"
+                                [ngModelOptions]="{standalone: true}"
+                                [valuePrimitive]="true"
+                                (valueChange)="checkButton();"
+                                required
+                                >
+
+                                </kendo-dropdownlist>
+                                <!-- <kendo-textbox 
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" 
+                                    placeholder='Job Position' 
+                                    [maxlength]="80" 
+                                    required>
+                                </kendo-textbox> -->
+                            </div>
+                            <div class="position-relative">
+                                <kendo-numerictextbox 
+                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0 mb-lg-0" 
+                                    placeholder='0' 
+                                    [maxlength]="5"
+                                    required 
+                                    [spinners]="false"
+                                    format="n"
+                                    [(ngModel)]="event.PositionNumber"
+                                    [ngModelOptions]="{standalone: true}"
+                                    (valueChange)="checkButton();"
+
+                                    >
+                                </kendo-numerictextbox>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-10">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-2 fv-row">
+                        <!-- <button class="btn btn-primary btn-sm" (click)="addNewTask()">{{"ALERT.BUTTON.NEWTASK" | translate}}</button>
+                        <button class="btn btn-primary btn-sm" (click)="deleteTask()">Remove</button> -->
+                        <div class="fs-6 fw-bold mt-5 d-flex flex-stack">
+                            <!--begin::Action-->
+                            <button class="btn btn-sm btn-primary" (click)="addNewTask()">{{"ALERT.BUTTON.NEWTASK" | translate}}</button>     
+                            <!--end::Action-->       
+                            
+                            <!--begin::Label-->
+                            <button class="btn btn-link fs-2 fw-bold text-dark p-2 ">
+                                <span class="fs-6 fw-semibold text-gray-600" (click)="deleteTask()">Remove</span>
+                            </button>
+                            <!--end::Label-->      
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-bold
+                        fs-6">Have Laptop</label>
+                    <div class="col-lg-1 fv-row">
+                        <label class="form-check form-check-custom form-check-solid form-switch mb-5">
+                            <kendo-switch 
+                            class="me-2"
+                            name="switch" 
+                            [(ngModel)]="event.laptop"
+                            > 
+
+                            </kendo-switch>
+                            <span class="form-check-label fw-bold ">Active</span>
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {{ jobPosition | json }}
+            <br>
+            {{ event | json }}
+            <br>
+            {{ workTimes | json }}
+
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    [disabled]="isLoading || saveDisable"
+                    (click)="saveSettings()">
+
+                    <ng-container *ngIf="!isLoading">{{"ALERT.BUTTON.SAVE" | translate}}</ng-container>
+                    <ng-container *ngIf="isLoading">
+                        <span class="indicator-progress"
+                            [style.display]="'block'">
+                            {{"ALERT.BUTTON.WAIT" | translate}}
+                            <span
+                                class="spinner-border spinner-border-sm
+                                align-middle ms-2"></span>
+                        </span>
+                    </ng-container>
+                </button>
+
+
+            </div>
+        </form>
+    </div>
+</div>

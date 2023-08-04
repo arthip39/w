@@ -1,0 +1,243 @@
+<div *ngIf="cloneSubCompany as _sub" class="card mb-5 mb-xl-10">
+  <div
+    class="card-header border-0 cursor-pointer"
+    role="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#kt_account_profile_details"
+    aria-expanded="true"
+    aria-controls="kt_account_profile_details">
+    <div class="card-title m-0">
+      <h3 class="fw-bolder m-0">{{"AUTH.PROFILE.TITLE" | translate}}</h3>
+    </div>
+    <!-- routerLink="/master/profile/overview" -->
+
+    <a
+      [routerLink]="['/master/branch',id,'overview']"
+      class="btn btn-primary align-self-center">
+      {{"ALERT.BUTTON.CANCEL" | translate}}
+    </a>
+  </div>
+  <div id="kt_account_profile_details" class="collapse show">
+    <form novalidate="" class="form" >
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">Branch Name</label>
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="fv-row">
+                <kendo-textbox
+                  class="form-control form-control-lg form-control-solid mb-3
+                  mb-lg-0"
+                  placeholder='Branch Name'
+                  [(ngModel)]="_sub.subCompanyName"
+                  [ngModelOptions]="{standalone: true}"
+                  [maxlength]="80"
+                  (valueChange)="checkButton()"
+                  required>
+                </kendo-textbox>
+                <!-- <div *ngIf="firstnameTH.invalid && (firstnameTH.dirty ||
+                  firstnameTH.touched)" >
+                  <div *ngIf="firstnameTH.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+                    | translate}}</div>
+                  <div *ngIf="firstnameTH.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                    | translate}}</div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span>Address</span></label>
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+              class="form-control form-control-lg form-control-solid mb-3
+              mb-lg-0"
+              placeholder='Address'
+              [(ngModel)]="_sub.addressDescription"
+              [ngModelOptions]="{standalone: true}"
+              [maxlength]="80"
+              (valueChange)="checkButton()"
+              >
+            </kendo-textbox>
+            <!-- <div *ngIf="line.invalid && (line.dirty || line.touched)"
+              >
+              <div *ngIf="line.errors?.pattern">{{"AUTH.VALIDATION.INVALID_LINE"
+                | translate}}</div>
+            </div> -->
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span
+              class="required">{{"AUTH.ADDRESS.PROVINCE" | translate}} / {{"AUTH.ADDRESS.DISTRICT" | translate}}</span></label>
+          <div class="col-lg-8 fv-row">
+            <div class="row">
+
+              <div class="col-lg-6 fv-row">
+                <kendo-dropdownlist
+                #dropdownlist
+                class="form-control-lg form-control-solid mb-3 mb-lg-0"
+                [data]="lsProvince"
+                [defaultItem]="{
+                label: '-- Select Province --',
+                value: ''
+                }"
+                textField="label"
+                valueField="value"
+                required
+                [valuePrimitive]="true"
+                [(ngModel)]="_sub.provinceId"
+                [ngModelOptions]="{standalone: true}"
+                (valueChange)="checkButton(); _sub.districtId= '' || _sub.subdistrictId= ''"
+                >
+              </kendo-dropdownlist>
+              </div>
+              <div class="col-lg-6 fv-row">
+                <kendo-dropdownlist
+                class="form-control-lg form-control-solid mb-3 mb-lg-0"
+                [data]="lsDistrict(_sub.provinceId)"
+                [defaultItem]="{
+                label: '-- Select District --',
+                value: ''
+                }"
+                textField="label"
+                valueField="value"
+                required
+                [valuePrimitive]="true"
+                (valueChange)="checkButton(); _sub.subdistrictId=''"
+                [(ngModel)]="_sub.districtId"
+                [ngModelOptions]="{standalone: true}"
+                >
+              </kendo-dropdownlist>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.ADDRESS.SUBDISTRICT" | translate}} / Zipcode </label>
+          <div class="col-lg-8 fv-row">
+            <div class="row">
+              <div class="col-lg-6 fv-row">
+                <kendo-dropdownlist
+                class="form-control-lg form-control-solid mb-3 mb-lg-0"
+                [data]="lsSubDistrict(_sub.districtId)"
+                [defaultItem]="{
+                label: '-- Select Subdistrict --',
+                value: ''
+                }"
+                textField="label"
+                valueField="value"
+                required
+                [valuePrimitive]="true"
+                (valueChange)="checkButton()"
+                [(ngModel)]="_sub.subdistrictId"
+                [ngModelOptions]="{standalone: true}"
+                >
+              </kendo-dropdownlist>
+              </div>
+              <div class="col-lg-6 fv-row">
+                <kendo-maskedtextbox
+                class="form-control form-control-lg form-control-solid"
+                mask="00000"
+                (valueChange)="checkButton()"
+                [(ngModel)]="_sub.zipcode"
+                [ngModelOptions]="{standalone: true}"
+                required>
+              </kendo-maskedtextbox>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span>{{"AUTH.INPUT.PHONE" | translate}}</span></label>
+          <div class="col-lg-8 fv-row">
+            <div class="row">
+              <div class="col-lg-6">
+                <kendo-maskedtextbox
+                class="form-control form-control-lg form-control-solid"
+                mask="(999)-0000-000"
+                (valueChange)="checkButton()"
+                [(ngModel)]="_sub.phone"
+                [ngModelOptions]="{standalone: true}"
+                required>
+              </kendo-maskedtextbox>
+              </div>
+              <div class="col-lg-6">
+                <kendo-textbox
+                class="form-control form-control-lg form-control-solid mb-3
+                mb-lg-0"
+                placeholder='{{"AUTH.INPUT.EMAIL" | translate}}'
+                [maxlength]="80"
+                (valueChange)="checkButton()"
+                [(ngModel)]="_sub.email"
+                [ngModelOptions]="{standalone: true}"
+                required>
+              </kendo-textbox>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span>Social Media</span></label>
+          <div class="col-lg-8 fv-row">
+            <div class="row">
+              <div class="col-lg-6">
+                <kendo-textbox
+                class="form-control form-control-lg form-control-solid mb-3
+                mb-lg-0"
+                placeholder='Facebook'
+                [maxlength]="80"
+                [(ngModel)]="_sub.facebook"
+                [ngModelOptions]="{standalone: true}"
+                (valueChange)="checkButton()"
+                required>
+              </kendo-textbox>
+              </div>
+              <div class="col-lg-6">
+                <kendo-textbox
+                class="form-control form-control-lg form-control-solid mb-3
+                mb-lg-0"
+                placeholder='Line'
+                [maxlength]="80"
+                [(ngModel)]="_sub.lineId"
+                [ngModelOptions]="{standalone: true}"
+                (valueChange)="checkButton()"
+                required>
+              </kendo-textbox>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- {{ cloneSubCompany | json }} -->
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button 
+          type="button"
+          class="btn btn-success"
+          [disabled]="isLoading || saveDisable"
+          (click)="saveSettings()"
+          >
+          
+          <ng-container *ngIf="!isLoading">{{"ALERT.BUTTON.SAVE" | translate}}</ng-container>
+          <ng-container *ngIf="isLoading" >
+            <span class="indicator-progress" [style.display]="'block'">
+              {{"ALERT.BUTTON.WAIT" | translate}}
+              <span 
+                class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+          </ng-container>
+        </button>
+        
+
+      </div>
+    </form>
+  </div>
+</div>

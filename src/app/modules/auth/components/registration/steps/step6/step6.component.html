@@ -1,0 +1,59 @@
+<div class="pb-10 pb-lg-15">
+  <h2 class="fw-bolder text-dark">{{"AUTH.ATTACHMENT.TITLE" | translate}}</h2>
+  <br>
+</div>
+
+<div class="row">
+  <div class="row mb-12">
+    <span class="required fw-bold mb-2">{{"AUTH.ATTACHMENT.UPLOAD" | translate}}</span>
+    <kendo-fileselect
+        [(ngModel)]="myFile"
+        [restrictions]="myRestrictions"
+        (valueChange)="onChangeFile()"
+        required
+        #fileInput = "ngModel" >
+      </kendo-fileselect>
+      <div *ngIf="fileInput.invalid && fileInput.dirty">
+        <div *ngIf="fileInput.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+      </div>
+  </div>
+</div>
+<br>
+<br>  
+
+<span class="fw-bold">{{"AUTH.ATTACHMENT.WEB" | translate}}</span>
+<div clas="row" *ngFor="let value of link;let i =index">
+  <div class="row mb-4 md-12">
+    <div class="col-md-11">
+      <kendo-textbox
+      class="form-control-solid custom-fill-mode"
+      [(ngModel)]="value.url"
+      name="url"
+      #urlControl="ngModel"
+      placeholder= '{{"AUTH.INPUT.Link" | translate}}'
+      pattern="{{Url_pattern.source}}"
+      [maxlength]="255"
+      [clearButton]="true"
+      (valueChange)="onChangeLink()"
+      [ngModelOptions]="{standalone: true}"
+      kendovalidator>
+      </kendo-textbox>
+      <div *ngIf="urlControl.invalid && (urlControl.dirty || urlControl.touched)">
+        <div *ngIf="urlControl.errors?.pattern">{{"AUTH.VALIDATION.INVALID_FIELD" | translate}}</div>
+      </div>
+
+    </div>
+    <div class="col-md-1">
+      <div class="position-relative">
+          <button kendoButton rounded="large" (click)="removeLink(i)">
+            <span id="boot-icon" class="bi bi-x" style="font-size: 13px; -webkit-text-stroke-width: 2px; border: hidden; color: rgb(255, 0, 0);"></span>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <kendo-button [disabled]="link.length >= MAX_LINK_URL" (click)="addNewLink()"><span class="bi bi-link-45deg"></span>{{"ALERT.BUTTON.LINK" | translate}}</kendo-button>
+  </div>
+</div>

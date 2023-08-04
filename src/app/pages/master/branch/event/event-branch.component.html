@@ -1,0 +1,106 @@
+<div class="d-flex flex-wrap flex-stack mb-6">
+    <h1 class="fw-bolder my-2">
+        Events
+        <!-- <span class="fs-6 text-gray-400 fw-bold ms-1">Active</span> -->
+    </h1>
+
+    <div class="d-flex flex-wrap my-2">
+        <div class="me-4">
+            <kendo-dropdownlist
+                class="dropdown-active"
+                [data]="[{
+                label:'InActive',
+                value:'InActive'
+                }]"
+                [defaultItem]="{
+                label:'Active',
+                value:'Active'
+                }"
+                textField="label"
+                valueField="value"
+                required
+                (valueChange)="changeActive($event)"
+                [valuePrimitive]="true">
+
+            </kendo-dropdownlist>
+        </div>
+        <a
+            [routerLink]="['/master/branch',id,'eventsetting']"
+            class="btn btn-primary btn-sm cursor-pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#kt_modal_create_project">
+            New Event
+        </a>
+    </div>
+</div>
+
+<div class="row g-6 g-xl-9">
+    <div class="col-md-6 col-xl-4" *ngFor="let e of lsEvent | async ; let i=index">
+        <app-card2 *ngIf="e.active == true"
+            badgeColor="primary"
+            status="Active"
+            statusColor="primary"
+            [title]="e.eventName"
+            [description]="e.eventProperty"
+            [date]="e.createdDateTime"
+            [progress]="50"
+            style="flex-direction: row; height: 200px;">
+        </app-card2>
+
+        <app-card2 *ngIf="e.active == false"
+            badgeColor="danger"
+            status="InActive"
+            statusColor="primary"
+            [title]="e.eventName"
+            [description]="e.eventProperty"
+            [date]="e.createdDateTime"
+            [progress]="50"
+            >
+        </app-card2>
+    </div>
+
+</div>
+
+<div class="d-flex flex-stack flex-wrap pt-10">
+    <div class="fs-6 fw-bold text-gray-700">Showing 1 to 10 of 50 entries</div>
+    <ul class="pagination">
+        <li class="page-item previous">
+            <a class="page-link cursor-pointer">
+                <i class="previous"></i>
+            </a>
+        </li>
+
+        <li class="page-item active">
+            <a class="page-link cursor-pointer"> 1 </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link cursor-pointer"> 2 </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link cursor-pointer"> 3 </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link cursor-pointer"> 4 </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link cursor-pointer"> 5 </a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link cursor-pointer"> 6 </a>
+        </li>
+
+        <li class="page-item next">
+            <a class="page-link cursor-pointer">
+                <i class="next"></i>
+            </a>
+        </li>
+    </ul>
+
+
+</div>
+<!-- style="margin: 30px; text-align: center;" -->

@@ -1,0 +1,101 @@
+<div class="card mb-5 mb-xl-10">
+    <div
+        class="card-header border-0 cursor-pointer"
+        role="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#kt_account_profile_details"
+        aria-expanded="true"
+        aria-controls="kt_account_profile_details">
+        <div class="card-title m-0">
+            <h3 class="fw-bolder m-0">{{"AUTH.ATTACHMENT.DOCUMENT" | translate}}</h3>
+        </div>
+        <a
+            href="/#/master/profile/documents"
+            class="btn btn-primary align-self-center">
+            {{"ALERT.BUTTON.CANCEL" | translate}}
+        </a>
+    </div>
+    <div id="kt_account_profile_details" class="collapse show">
+        <form novalidate="" class="form">
+            <!-- start -->
+            <div class="card-body border-top p-9">
+                <div class="mx-20">
+                    <label class="col-lg-5 col-form-label required fw-bold
+                        fs-6">{{"AUTH.ATTACHMENT.UPLOAD_FILE" | translate}}</label>
+                    <div class="row pt-2" >
+                        <kendo-fileselect
+                            required>
+                        </kendo-fileselect>
+
+                    </div>
+                </div>
+                <br><br>
+
+                <div class="mx-20">
+                    <label class="col-lg-5 col-form-label fw-bold
+                        fs-6">{{"AUTH.ATTACHMENT.LINK" | translate}}</label>
+                    <div clas="row" *ngFor="let attach of lsUser | async ; let i = index">
+                        <div class="row mb-4 md-10">
+                            <div class="col-md-11">
+                                <kendo-textbox
+                                    class="form-control-solid custom-fill-mode"
+                                    name="url"
+                                    placeholder='{{"AUTH.INPUT.Link" | translate}}'
+                                    [maxlength]="255"
+                                    [(ngModel)]="attach.externalPath"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [clearButton]="true"
+                                    kendovalidator>
+                                </kendo-textbox>
+
+
+                            </div>
+                            <div class="col-md-1">
+                                <div class="position-relative">
+                                    <button kendoButton rounded="large"  
+                                    (click)="deleteTask(i,attach)"
+                                        >
+                                        <span id="boot-icon" class="bi bi-x"
+                                            style="font-size: 13px;
+                                            -webkit-text-stroke-width: 2px;
+                                            border: hidden; color: rgb(255, 0,
+                                            0);"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <kendo-button (click)="addNewTask()">
+                                <span class="bi bi-link-45deg"></span>{{"ALERT.BUTTON.LINK" | translate }}
+                            </kendo-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end -->
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    [disabled]="isLoading"
+                    (click)="saveSettings()">
+
+                    <ng-container *ngIf="!isLoading">{{"ALERT.BUTTON.SAVE" | translate}}</ng-container>
+                    <ng-container *ngIf="isLoading">
+                        <span class="indicator-progress"
+                            [style.display]="'block'">
+                            {{"ALERT.BUTTON.WAIT" | translate}}
+                            <span
+                                class="spinner-border spinner-border-sm
+                                align-middle ms-2"></span>
+                        </span>
+                    </ng-container>
+                </button>
+
+
+            </div>
+        </form>
+    </div>
+</div>

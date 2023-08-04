@@ -1,0 +1,266 @@
+<div class="col-xxl-12">
+  <div class="card card-xxl-stretch mb-5 mb-xxl-8">
+    <div *ngFor="let company of subcompanyProfile; let i = index">
+      <div class="py-3 px-6 clickable" (click)="toggleCompanyDetails(i)">
+        <div class="row">
+          <!-- Picture -->
+          <div
+            class="col-md-2 avatar-container image-container box-shadow-avatar pb-3"
+            [ngStyle]="{ backgroundImage: 'url(' + imgUrl + ')' }"
+          ></div>
+          <ng-template #placeholder>
+            <div class="image-container avatar-placeholder"></div>
+          </ng-template>
+          <!-- Picture End-->
+          <div class="col-md-8 fs-6 fw-bold py-1">
+            <label class="blue-label">
+              {{ company.eventName }}
+            </label>
+            <br />
+            <label> {{ company.subCompanyName }}</label> <br />
+            <label class="blue-label"> {{ company.label }} </label> <br />
+            <label>
+              {{ "ทุนการศึกษา" + " " + company.scholarship + " " + "บาท" }}
+            </label>
+          </div>
+          <div class="col-md-3 fw-bold">
+            <label> {{ company.eventProperty }} </label> <br />
+            <button class="btn-icon col-md-12 d-flex justify-content-end">
+              <i
+                class="fa fa-solid fa-chevron-down"
+                [ngClass]="{ 'rotate-icon': currentExpandedIndex === i }"
+              ></i>
+            </button>
+          </div>
+          <div
+            class="extra-area"
+            [ngClass]="{ expand: currentExpandedIndex === i }"
+          >
+            <div class="container">
+              <div class="row pt-3">
+                <div class="fw-bold col-md-4 pb-6">
+                  <label>วันทำงาน</label> <br />
+                  <label>{{
+                    company.InWorkDay + " - " + company.OutWorkDay
+                  }}</label>
+                  <br />
+                  <label>{{
+                    "ตั้งแต่ " +
+                      (company.WorkStartTime | date : "HH:mm") +
+                      " น." +
+                      " - " +
+                      (company.WorkEndTime | date : "HH:mm") +
+                      " น."
+                  }}</label>
+                </div>
+                <div class="fw-bold col-md-4 pb-6">
+                  <label>
+                    {{ "รับนักศึกษาจำนวน " + company.positionNumber + " คน" }}
+                  </label>
+                  <br />
+                  <label>ตำแหน่งที่รับ</label> <br />
+                  <label class="blue-label"> {{ company.positionName }} </label>
+                </div>
+                <div class="fw-bold col-md-4 pb-6">
+                  <label>ทักษะอื่นๆ</label> <br />
+                  <label> {{ company.softskill_requirement }} </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="fw-bold col-md-4 pb-6">
+                  <label>ค่าตอบแทนและสวัสดิการ</label> <br />
+                  <label> {{ company.rewardWelfare }} </label>
+                </div>
+                <div class="fw-bold col-md-4 pb-6">
+                  <label>ทักษะที่จำเป็น</label> <br />
+                  <label> {{ company.hardskill_requirement }} </label>
+                </div>
+                <div class="col-md-4 pb-6"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 pb-6"></div>
+                <div class="fw-bold col-md-4 pb-6">
+                  <label>รายละเอียดของงาน</label> <br />
+                  <label> {{ company.jobDescription }} </label>
+                </div>
+                <div class="col-md-4 pb-6"></div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <kendo-button
+                  class="fw-bold btn btn-primary btn-sm"
+                  *ngIf="!opened"
+                  (click)="open(company); $event.stopPropagation()"
+                >
+                  สมัครฝึกงาน
+                </kendo-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<kendo-dialog
+  title="{{ selectedCompany.subCompanyName }} ({{ selectedCompany.label }})"
+  *ngIf="opened"
+  (close)="close('close')"
+  autoFocusedElement="#positionSelect"
+  [minWidth]="400"
+  [width]="700"
+  [minHeight]="400"
+  [height]="700"
+>
+  <div class="ps-4 pe-4">
+    <div class="py-3">
+      <kendo-label
+        for="positionSelect"
+        class="py-2 d-flex justify-content-start kendo-label"
+      >
+        Position
+      </kendo-label>
+      <kendo-dropdownlist
+        id="positionSelect"
+        class="custom-fill-mode"
+        placeholder="Software Developer"
+        [data]="selectedCompany.positionOptions"
+        textField="positionName"
+        valueField="positionId"
+        fillMode="solid"
+        size="large"
+      >
+      </kendo-dropdownlist>
+    </div>
+    <div class="py-2">
+      <kendo-label class="kendo-label">Internship Date</kendo-label>
+    </div>
+    <div class="py-2 d-flex justify-content-start">
+      <kendo-datepicker
+        [animateCalendarNavigation]="true"
+        class="custom-fill-mode md-5"
+        calendarType="classic"
+        [readOnlyInput]="true"
+        format="dd-MM-yyyy"
+        placeholder="Day-Month-Year"
+        [(ngModel)]="internshipForm.internshipStart"
+      >
+      </kendo-datepicker>
+      <kendo-label class="px-2 pt-2 col-xs-1 kendo-label">To</kendo-label>
+      <kendo-datepicker
+        [animateCalendarNavigation]="true"
+        class="custom-fill-mode"
+        calendarType="classic"
+        [readOnlyInput]="true"
+        format="dd-MM-yyyy"
+        placeholder="Day-Month-Year"
+        [(ngModel)]="internshipForm.internshipEnd"
+      >
+      </kendo-datepicker>
+    </div>
+    <div class="py-2 d-flex justify-content-start kendo-label">
+      <kendo-label>Knowing result before</kendo-label>
+      <span class="text-danger">*Select date after register 14 days</span>
+    </div>
+    <div class="d-flex justify-content-start py-2">
+      <kendo-datepicker
+        [animateCalendarNavigation]="true"
+        class="custom-fill-mode"
+        calendarType="classic"
+        [readOnlyInput]="true"
+        format="dd-MM-yyyy"
+        placeholder="Day-Month-Year"
+        [(ngModel)]="internshipForm.dueDate"
+      >
+      </kendo-datepicker>
+      <kendo-label class="ps-3 pe-3 pt-2 kendo-label kendo-fit-content"
+        >Scholar Year</kendo-label
+      >
+      <kendo-dropdownlist
+        id="internYear"
+        class="kendo-internyear custom-fill-mode"
+        Placeholder="ชั้นปีที่ 1"
+        [data]="internYears"
+        fillMode="solid"
+        [(ngModel)]="internshipForm.internYear"
+      >
+      </kendo-dropdownlist>
+    </div>
+    <div class="py-3 kendo-label">
+      <kendo-label>Convenient Date for interview (You can select more than one)</kendo-label>
+    </div>
+    <div class="py-2 d-flex justify-content-center">
+      <kendo-calendar
+        class="custom-fill-mode kendo-calendar"
+        selection="multiple"
+        [min]="minDate"
+        type="classic"
+        [value]="interviewdate"
+        (valueChange)="onChange($event)"
+        [(ngModel)]="internshipForm.convenientDate"
+      >
+      </kendo-calendar>
+    </div>
+
+    <div class="py-3">
+      <kendo-label
+        for="message"
+        class="py-2 d-flex justify-content-start kendo-label"
+        >what do you want to tell us</kendo-label
+      >
+      <kendo-textarea
+        id="message"
+        class="d-flex justify-content-start kendo-textarea custom-fill-mode"
+        [rows]="3"
+        resizable="none"
+        [maxlength]="255"
+        [(ngModel)]="internshipForm.internComment"
+      >
+      </kendo-textarea>
+    </div>
+    <div class="py-4 d-flex justify-content-start">
+      <kendo-label class="mr-2 pe-3 kendo-label"
+        >Do you have a laptop?</kendo-label
+      >
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="laptopRadio"
+          id="laptopRadioYes"
+          [value]="true"
+          required
+          kendoRadioButton
+          [(ngModel)]="internshipForm.laptop"
+        />
+        <kendo-label class="kendo-label" for="laptopRadioYes">Yes</kendo-label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="laptopRadio"
+          id="laptopRadioNo"
+          [value]="false"
+          required
+          checked
+          kendoRadioButton
+          [(ngModel)]="internshipForm.laptop"
+        />
+        <kendo-label class="kendo-label" for="laptopRadioNo">No</kendo-label>
+      </div>
+    </div>
+  </div>
+  <kendo-dialog-actions class="dialog-actions">
+        <button kendoButton class="fw-bold btn  btn-secondary btn-sm kendoButton" (click)="close('close')">Cancel</button>
+        <button type="button" class="fw-bold btn btn-primary btn-sm kendoButton" [disabled]="isLoading || saveDisable"  (click)="onSubmit()" themeColor="primary">
+          <ng-container *ngIf="!isLoading">Register</ng-container>
+            <ng-container *ngIf="isLoading">
+              <span class="indicator-progress" [style.display]="'block'">
+                {{"ALERT.BUTTON.WAIT" | translate}}
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+            </ng-container>
+        </button>
+  </kendo-dialog-actions>
+</kendo-dialog>

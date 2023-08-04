@@ -1,0 +1,349 @@
+<div class="card mb-5 mb-xl-10">
+  <div
+    class="card-header border-0 cursor-pointer"
+    role="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#kt_account_profile_details"
+    aria-expanded="true"
+    aria-controls="kt_account_profile_details"
+  >
+    <div class="card-title m-0">
+      <h3 class="fw-bolder m-0">Profile Details</h3>
+    </div>
+
+    <a
+    routerLink="/crafted/account/overview"
+    class="btn btn-primary align-self-center"
+  >
+    Cancel
+  </a>
+
+
+  </div>
+  <div id="kt_account_profile_details" class="collapse show">
+    <form novalidate="" class="form" *ngIf="user$ | async as _user">
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6">Avatar</label>
+          <div class="col-lg-8">
+            <div
+              class="image-input image-input-outline"
+              data-kt-image-input="true"
+              [style.background-image]="'url(./assets/media/avatars/blank.png)'"
+            >
+              <div
+                class="image-input-wrapper w-125px h-125px"
+                [style.background-image]="
+                  'url(./assets/media/avatars/300-1.jpg)'
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Full Name (TH)</label
+          >
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-6 fv-row">
+                <kendo-textbox
+                  
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  placeholder='{{"AUTH.INPUT.FIRSTNAME_TH" | translate}}'
+                  [maxlength]="80"
+                  [value]='_user.firstnameTH'
+                  >
+                </kendo-textbox>
+              </div>
+              <div class="col-lg-6 fv-row">
+                <kendo-textbox
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  placeholder='{{"AUTH.INPUT.LASTNAME_TH" | translate}}'
+                  [maxlength]="80"
+                  [value]='_user.lastnameTH'
+                  >
+                </kendo-textbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Full Name (Eng)</label
+          >
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-6 fv-row">
+                <!-- <input
+                  type="text"
+                  class="
+                    form-control form-control-lg form-control-solid
+                    mb-3 mb-lg-0
+                  "
+                  placeholder="First name"
+                  name="fName"
+                  value="Max"
+                /> -->
+                <kendo-textbox
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  placeholder='{{"AUTH.INPUT.FIRSTNAME_ENG" | translate}}'
+                  [maxlength]="80"
+                  [value]='_user.firstnameEng'
+                  >
+                </kendo-textbox>
+              </div>
+              <div class="col-lg-6 fv-row">
+                <kendo-textbox
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  placeholder='{{"AUTH.INPUT.LASTNAME_ENG" | translate}}'
+                  [maxlength]="80"
+                  [value]='_user.lastnameEng'
+                  >
+                </kendo-textbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Nickname</label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+            placeholder='{{"AUTH.INPUT.NICKNAME" | translate}}'
+            [maxlength]="80"
+            [value]='_user.nickname'
+            >
+          </kendo-textbox>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Sex</label
+          >
+          <div *ngIf="_user.gender == 'M' " class="col-lg-8 fv-row pt-3">
+            <label  class="radio-container ">
+              <input type="radio"
+                class="radio-border"
+                id="male"
+                name="gender"
+                checked
+                required
+                [value]="_user.gender"
+                kendoRadioButton>
+              <kendo-label for="male" class="k-radio-label mx-2" 
+              text='{{"AUTH.INPUT.GENDER.MALE" | translate}}'>
+            </kendo-label>
+            </label>
+            <label class="radio-container mx-5">
+              <input type="radio"
+                class="radio-border"
+                id="female"
+                name="gender"
+                [value]="_user.gender"
+                required
+                kendoRadioButton>
+              <kendo-label for="female" class="k-radio-label mx-2" 
+              text='{{"AUTH.INPUT.GENDER.FEMALE" | translate}}'>
+            </kendo-label>
+            </label>
+          </div>
+          <div *ngIf="_user.gender == 'F' " class="col-lg-8 fv-row pt-3">
+            <label  class="radio-container ">
+              <input type="radio"
+                class="radio-border"
+                id="male"
+                name="gender"
+                required
+                [value]="_user.gender"
+                kendoRadioButton>
+              <kendo-label for="male" class="k-radio-label mx-2" 
+              text='{{"AUTH.INPUT.GENDER.MALE" | translate}}'>
+            </kendo-label>
+            </label>
+            <label class="radio-container mx-5">
+              <input type="radio"
+                class="radio-border"
+                id="female"
+                name="gender"
+                checked
+                [value]="_user.gender"
+                required
+                kendoRadioButton>
+              <kendo-label for="female" class="k-radio-label mx-2" 
+              text='{{"AUTH.INPUT.GENDER.FEMALE" | translate}}'>
+            </kendo-label>
+            </label>
+          </div>
+        </div>
+        
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">ฺDate of birth</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-datepicker
+              calendarType="classic"
+              [animateCalendarNavigation]="true"
+              class="form-control-lg form-control-solid mb-3 mb-lg-0"
+              format="dd/MM/yyyy"
+          >
+
+        </kendo-datepicker>
+            <!-- <kendo-textbox
+            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+            placeholder='{{"AUTH.INPUT.DATE_OF_BIRTH" | translate}}'
+            [maxlength]="80"
+            [value]='_user.dateOfBirth'
+            >
+          </kendo-textbox> -->
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Contact Phone</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-maskedtextbox
+          class="form-control form-control-lg form-control-solid"
+          mask="(999)-0000-000"
+          [value]="_user.phone">
+        </kendo-maskedtextbox>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Email</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+            placeholder='{{"AUTH.INPUT.EMAIL" | translate}}'
+            [maxlength]="80"
+            [value]='_user.email'
+            >
+          </kendo-textbox>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Line</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+            placeholder='{{"AUTH.INPUT.SOCIAL.LINE" | translate}}'
+            [maxlength]="80"
+            [value]='_user.line'
+            >
+          </kendo-textbox>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            ><span class="required">Province</span></label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-dropdownlist
+              [data]="lsProvince"
+              class="form-control-lg form-control-solid mb-3 mb-lg-0"
+              [defaultItem]="{
+                label: '--Select province--',
+                value: ''
+              }"
+              textField="label"
+              valueField="value"
+              [valuePrimitive]="true"
+              
+              
+        >
+            </kendo-dropdownlist>
+            <!-- <div *ngIf="
+            form.get('Province')?.hasError('required') &&
+            form.get('Province')?.touched "
+            class="fv-plugins-message-container invalid-feedback"
+        >
+          {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+        </div> -->
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >District</label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-dropdownlist
+            [data]="lsDistrict"
+            class="form-control-lg form-control-solid mb-3 mb-lg-0"
+            [defaultItem]="{
+              label: '--Select District--',
+              value: ''
+            }"
+            textField="label"
+            valueField="value"
+            [valuePrimitive]="true"
+            
+
+            >
+          </kendo-dropdownlist>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Subdistrict</label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-dropdownlist
+              [data]="lsSubDistrict"
+              class="form-control-lg form-control-solid mb-3 mb-lg-0"
+              [defaultItem]="{
+                label: '--Select Subdistrict--',
+                value: ''
+              }"
+              textField="label"
+              valueField="value"
+              [valuePrimitive]="true"
+            >
+          </kendo-dropdownlist>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Zipcode</label
+          >
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  placeholder='{{"AUTH.ADDRESS.ZIPCODE" | translate}}'
+                  [maxlength]="80"
+                  [value]='_user.zipcode'
+                  >
+                </kendo-textbox>
+          </div>
+        </div>
+       
+      </div>
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="isLoading"
+          (click)="saveSettings()"
+        >
+          <ng-container *ngIf="!isLoading">Save Changes</ng-container>
+          <ng-container *ngIf="isLoading">
+            <span clas="indicator-progress" [style.display]="'block'">
+              Please wait...{{ " " }}
+              <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span>
+            </span>
+          </ng-container>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

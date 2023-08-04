@@ -1,0 +1,265 @@
+<div class="card mb-5 mb-xl-10">
+    <div
+      class="card-header border-0 cursor-pointer"
+      role="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#kt_account_profile_details"
+      aria-expanded="true"
+      aria-controls="kt_account_profile_details">
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">{{"AUTH.PROFILE.TITLE" | translate}}</h3>
+      </div>
+      <!-- routerLink="/master/profile/overview" -->
+  
+      <a
+        href="/#/master/company/overview"
+        class="btn btn-primary align-self-center">
+        {{"ALERT.BUTTON.CANCEL" | translate}}
+      </a>
+    </div>
+    <div id="kt_account_profile_details" class="collapse show">
+      <form novalidate="" class="form" *ngIf="cloneCompany  as _com">
+        <div class="card-body border-top p-9">
+            <div class="row mb-6">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6">Company Image</label>
+                <div class="col-lg-8">
+                  <div class="image-input image-input-outline"
+                    data-kt-image-input="true" style="background-image:
+                    url('/assets/Image/man.png')">
+                    <!--begin::Preview existing avatar-->
+                    <div *ngIf="imgUrl == ''"
+                      class="image-input-wrapper w-125px h-125px"
+                      [ngStyle]="{backgroundImage: 'url(' + _com.pictureUrl + ')'}" 
+                      ></div>
+                      <div *ngIf="imgUrl != ''"
+                      class="image-input-wrapper w-125px h-125px"
+                      [ngStyle]="{backgroundImage: 'url(' + imgUrl + ')'}" 
+                      ></div>
+                    <!--end::Preview existing avatar-->
+      
+                    <!--begin::Label-->
+                    <label class="btn btn-icon btn-circle btn-active-color-primary
+                      w-25px h-25px bg-body shadow"
+                      data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                      aria-label="Change avatar" data-bs-original-title="Change
+                      avatar" data-kt-initialized="1">
+                      <i class="bi bi-pencil-fill fs-7"></i>
+      
+                      <!--begin::Inputs-->
+                      <input type="file" name="avatar" accept="image/*" #fileUplod (change)="onFileChange($event)">
+                      <input type="hidden" name="avatar_remove" >
+                      <!--end::Inputs-->
+                    </label>
+                    
+                    <!--end::Label-->
+      
+                    <!--begin::Cancel-->
+                    <!-- <span class="btn btn-icon btn-circle btn-active-color-primary
+                      w-25px h-25px bg-body shadow"
+                      data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                      aria-label="Cancel avatar" data-bs-original-title="Cancel
+                      avatar" data-kt-initialized="1">
+                      <i class="bi bi-x fs-2"></i>
+                    </span> -->
+                    <!--end::Cancel-->
+      
+                    <!-- begin::Remove-->
+                    <!-- <span class="btn btn-icon btn-circle btn-active-color-primary
+                      w-25px h-25px bg-body shadow"
+                      data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                      aria-label="Remove avatar" data-bs-original-title="Remove
+                      avatar" data-kt-initialized="1">
+                      <i class="bi bi-x fs-2"></i>
+                    </span> -->
+                    <!--end::Remove -->
+                  </div>
+                  <div class="mt-5 fb-row">
+                    <font size="2" color="gray">{{"AUTH.PROFILE.ALLOW" | translate}}</font>
+                  </div>
+                  
+                  <!-- <label class="form-text">Allowed file types: png, jpg, jpeg.</label>
+                  <label class="form-text">Allowed file types: png, jpg, jpeg.</label> -->
+                </div>
+      
+              </div>
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">Company Name</label>
+            <div class="col-lg-8">
+              <div class="row">
+                <div class="fv-row">
+                  <kendo-textbox
+                    class="form-control form-control-lg form-control-solid mb-3
+                    mb-lg-0"
+                    placeholder='Company Name'
+                    [maxlength]="80"
+                    (valueChange)="checkButton()"
+                    [(ngModel)]="_com.companyName"
+                    [ngModelOptions]="{standalone: true}"
+                    required
+                    >
+
+                  </kendo-textbox>
+                  <!-- <div *ngIf="firstnameTH.invalid && (firstnameTH.dirty ||
+                    firstnameTH.touched)" >
+                    <div *ngIf="firstnameTH.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+                      | translate}}</div>
+                    <div *ngIf="firstnameTH.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                      | translate}}</div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Company Type</label>
+            <div class="col-lg-8">
+              <div class="row">
+                <div class="fv-row">
+                    <kendo-textbox
+                    class="form-control form-control-lg form-control-solid mb-3
+                    mb-lg-0"
+                    placeholder='Company Name'
+                    [maxlength]="80"
+                    (valueChange)="checkButton()"
+                    [(ngModel)]="_com.companyType"
+                    [ngModelOptions]="{standalone: true}"
+                    >
+
+                  </kendo-textbox>
+                  <!-- <div *ngIf="firstnameTH.invalid && (firstnameTH.dirty ||
+                    firstnameTH.touched)" >
+                    <div *ngIf="firstnameTH.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+                      | translate}}</div>
+                    <div *ngIf="firstnameTH.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                      | translate}}</div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6"><span>Website</span></label>
+            <div class="col-lg-8 fv-row">
+              <kendo-textbox
+                class="form-control form-control-lg form-control-solid mb-3
+                mb-lg-0"
+                placeholder='Website'
+                [maxlength]="80"
+                [(ngModel)]="_com.website"
+                [ngModelOptions]="{standalone: true}"
+                (valueChange)="checkButton()"
+                >
+              </kendo-textbox>
+              <!-- <div *ngIf="line.invalid && (line.dirty || line.touched)"
+                >
+                <div *ngIf="line.errors?.pattern">{{"AUTH.VALIDATION.INVALID_LINE"
+                  | translate}}</div>
+              </div> -->
+            </div>
+          </div>
+  
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6"><span>Email</span></label>
+            <div class="col-lg-8 fv-row">
+              <kendo-textbox
+                class="form-control form-control-lg form-control-solid mb-3
+                mb-lg-0"
+                placeholder='Email'
+                [maxlength]="80"
+                [(ngModel)]="_com.email"
+                [ngModelOptions]="{standalone: true}"
+                (valueChange)="checkButton()"
+                >
+              </kendo-textbox>
+              <!-- <div *ngIf="line.invalid && (line.dirty || line.touched)"
+                >
+                <div *ngIf="line.errors?.pattern">{{"AUTH.VALIDATION.INVALID_LINE"
+                  | translate}}</div>
+              </div> -->
+            </div>
+          </div>
+          
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6"><span>Social Media</span></label>
+            <div class="col-lg-8 fv-row">
+              <div class="row">
+                <div class="col-lg-6">
+                  <kendo-textbox
+                  class="form-control form-control-lg form-control-solid mb-3
+                  mb-lg-0"
+                  placeholder='Facebook'
+                  [maxlength]="80"
+                  [(ngModel)]="_com.facebook"
+                  [ngModelOptions]="{standalone: true}"
+                  (valueChange)="checkButton()"
+                  required>
+                </kendo-textbox>
+                </div>
+                <div class="col-lg-6">
+                  <kendo-textbox
+                  class="form-control form-control-lg form-control-solid mb-3
+                  mb-lg-0"
+                  placeholder='Line'
+                  [maxlength]="80"
+                  [(ngModel)]="_com.line"
+                  [ngModelOptions]="{standalone: true}"
+                  (valueChange)="checkButton()"
+                  required>
+                </kendo-textbox>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-bold fs-6"><span>Company Description</span></label>
+            <div class="col-lg-8 fv-row">
+              <kendo-textarea
+                class="form-control form-control-lg form-control-solid mb-3
+                mb-lg-0"
+                placeholder='Description'
+                [maxlength]="200"
+                [rows]="4"
+                [(ngModel)]="_com.companyDescription"
+                [ngModelOptions]="{standalone: true}"
+                (valueChange)="checkButton()"
+                >
+              </kendo-textarea>
+              <!-- <div *ngIf="line.invalid && (line.dirty || line.touched)"
+                >
+                <div *ngIf="line.errors?.pattern">{{"AUTH.VALIDATION.INVALID_LINE"
+                  | translate}}</div>
+              </div> -->
+            </div>
+          </div>
+  
+  
+  
+        </div>
+        <div class="card-footer d-flex justify-content-end py-6 px-9">
+          <button 
+            type="button"
+            class="btn btn-success"
+            [disabled]="isLoading || saveDisable"
+            (click)="saveSettings()"
+            >
+            
+            <ng-container *ngIf="!isLoading">{{"ALERT.BUTTON.SAVE" | translate}}</ng-container>
+            <ng-container *ngIf="isLoading" >
+              <span class="indicator-progress" [style.display]="'block'">
+                {{"ALERT.BUTTON.WAIT" | translate}}
+                <span 
+                  class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+            </ng-container>
+          </button>
+          
+  
+        </div>
+      </form>
+    </div>
+  </div>
+  

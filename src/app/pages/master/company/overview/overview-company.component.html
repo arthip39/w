@@ -1,0 +1,91 @@
+<div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+    <div class="card-header cursor-pointer">
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">Company Details</h3>
+      </div>
+  
+      <a
+        href="/#/master/company/companysetting"
+        class="btn btn-primary align-self-center"
+      >
+      Edit Companay
+      </a>
+    </div>
+  
+    <div *ngIf="company | async as _user" class="card-body p-9">
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">Company Name</label>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.companyName }}</span>
+        </div>
+  
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">Company Type</label>
+  
+        <div class="col-lg-3 fv-row">
+          <span class="fw-bold fs-6"> {{ _user.companyType }} </span>
+        </div>
+  
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">
+          Email
+          
+        </label>
+  
+        <div class="col-lg-3 d-flex align-items-center">
+          <span class="fw-bolder fs-6 me-2"> {{ _user.email }}</span>
+        </div>
+      </div>
+  
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">Facebook</label>
+  
+        <div class="col-lg-3">
+          <a href="#" target="_blank" class="fw-bold fs-6 text-dark text-hover-primary">
+            {{ _user.facebook }}
+          </a>
+        </div>
+  
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">
+            {{"AUTH.INPUT.SOCIAL.LINE" | translate}}
+          <i
+            class="fas fa-exclamation-circle ms-1 fs-7"
+            data-bs-toggle="tooltip"
+            title="Country of origination"
+          ></i>
+        </label>
+        <div class="col-lg-3">
+            <a href="#" class="fw-bold fs-6 text-dark text-hover-primary">
+                {{ _user.line }}
+              </a>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">
+            Website
+          <i
+            class="fas fa-exclamation-circle ms-1 fs-7"
+            data-bs-toggle="tooltip"
+            title="Country of origination"
+          ></i>
+        </label>
+        <div class="col-lg-3">
+            <a [href]="_user.website" target="_blank" class="fw-bold fs-6 text-dark text-hover-primary">
+                {{ _user.website }}
+              </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  

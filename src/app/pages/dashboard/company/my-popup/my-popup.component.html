@@ -1,0 +1,147 @@
+<!-- your dialog content here -->
+<div class="header-container">
+  <h2 class="ps-3 pt-2 kendo-label fs-bold">
+    {{ data.companyName }} ({{ data.label }})
+  </h2>
+  <button mat-icon-button class="close-button" (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div class="ps-4 pe-4">
+  <!-- <form novalidate="" class="form" *ngIf="popupInformation  as _intern"> -->
+    <div class="py-3">
+      <kendo-label
+        for="positionSelect"
+        class="py-2 d-flex justify-content-start kendo-label"
+        >สนใจตำแหน่ง</kendo-label
+      >
+      <kendo-dropdownlist
+        id="positionSelect"
+        class="custom-fill-mode"
+        [data]="data.positionOptions"
+        textField="positionName"
+        valueField="positionId"
+        fillMode="solid"
+        size="large"
+      >
+      </kendo-dropdownlist>
+    </div>
+    <div class="py-2">
+      <kendo-label class="kendo-label">เริ่มฝึกงานวันที่</kendo-label>
+    </div>
+    <div class="py-2 d-flex justify-content-start">
+      <kendo-datepicker
+        class="custom-fill-mode md-5"
+        calendarType="classic"
+        [readOnlyInput]="true"
+        format="dd MMMM yyyy"
+        placeholder="วัน เดือน ปี"
+      >
+      </kendo-datepicker>
+      <kendo-label class="px-2 pt-2 col-xs-1 kendo-label">ถึง</kendo-label>
+      <kendo-datepicker
+        class="custom-fill-mode"
+        calendarType="classic"
+        [readOnlyInput]="true"
+        format="dd MMMM yyyy"
+        placeholder="วัน เดือน ปี"
+      >
+      </kendo-datepicker>
+    </div>
+    <div class="py-2 d-flex justify-content-start kendo-label">
+      <kendo-label>ขอรับทราบผลก่อนวันที่ </kendo-label>
+      <span class="text-danger">*เลือกวันที่หลังวันสมัคร 14 วัน</span>
+    </div>
+    <div class="d-flex justify-content-start py-2">
+      <kendo-datepicker
+        
+        class="custom-fill-mode"
+        calendarType="classic"
+        [readOnlyInput]="true"
+        format="dd MMMM yyyy"
+        placeholder="วัน เดือน ปี"
+      >
+      </kendo-datepicker>
+      <kendo-label class="ps-4 pt-2 kendo-label kendo-fit-content">ปีการศึกษา</kendo-label>
+      <kendo-dropdownlist
+        
+        id="internYear"
+        class="kendo-internyear custom-fill-mode"
+        [data]="internYears"
+        textField="year"
+        valueField="year"
+        fillMode="solid"
+      >
+      </kendo-dropdownlist>
+    </div>
+    <div class="py-3 kendo-label">
+      <kendo-label>วันที่สะดวกสอบสัมภาษณ์ (เลือกได้มากกว่า 1 วัน)</kendo-label>
+    </div>
+    <!--@@@@@@@@@@ ปฏิทินเลือกวันอยู่ตรงนี้ @@@@@@@@@@@@-->
+    <div class="py-2 d-flex justify-content-center">
+      <kendo-calendar
+        class="custom-fill-mode kendo-calendar"
+        selection="multiple"
+        [min]="minDate"
+        type="classic"
+        [value]="interviewdate"
+        (valueChange)="onChange($event)"
+      >
+      </kendo-calendar>
+    </div>
+
+    <div class="py-3">
+      <kendo-label
+        for="message"
+        class="py-2 d-flex justify-content-start kendo-label"
+        >ความคิดเห็นเพิ่มเติมหรือสิ่งที่อยากจะบอก</kendo-label
+      >
+      <kendo-textarea
+       
+        id="message"
+        class="d-flex justify-content-start kendo-textarea custom-fill-mode"
+        [rows]="3"
+        resizable="none"
+        [maxlength]="255"
+      >
+      </kendo-textarea>
+    </div>
+    <div class="py-4 d-flex justify-content-start">
+      <kendo-label class="mr-2 pe-3 kendo-label"
+        >คุณมีโน๊ตบุ๊คหรือไม่?</kendo-label
+      >
+      <div class="form-check form-check-inline">
+        <input
+        
+          class="form-check-input"
+          type="radio"
+          name="laptopRadio"
+          id="laptopRadioYes"
+          value="true"
+          required
+          kendoRadioButton
+        />
+        <kendo-label class="kendo-label" for="laptopRadioYes">มี</kendo-label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+        
+          class="form-check-input"
+          type="radio"
+          name="laptopRadio"
+          id="laptopRadioNo"
+          value="false"
+          required
+          checked
+          kendoRadioButton
+        />
+        <kendo-label class="kendo-label" for="laptopRadioNo">ไม่มี</kendo-label>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button kendoButton class="fw-bold btn btn-primary btn-sm" [disabled]="saveDisable">
+        สมัครฝึกงาน
+      </button>      
+    </div>
+  <!-- </form> -->
+</div>

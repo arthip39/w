@@ -1,0 +1,56 @@
+<div class="card card-flush h-lg-100">
+    <!--begin::Card header-->
+    <div class="card-header mt-6">
+        <!--begin::Card title-->
+        <div class="card-title flex-column">
+            <h3 class="fw-bold mb-1">Events Tasks</h3>
+
+            <div class="fs-6 text-gray-400" *ngIf="lsEvent | async as _event">Total
+                {{ _event.length }} tasks in backlog</div>
+        </div>
+        <!--end::Card title-->
+
+        <!--begin::Card toolbar-->
+        <div class="card-toolbar">
+            <a [routerLink]="['/master/branch',id,'event']" class="btn btn-bg-light btn-active-color-primary
+                btn-sm">View All</a>
+        </div>
+        <!--end::Card toolbar-->
+    </div>
+    <!--end::Card header-->
+
+    <!--begin::Card body-->
+    <div class="card-body d-flex flex-column mb-9 p-9 pt-3" >
+        <!--begin::Item-->
+        <div class="d-flex align-items-center position-relative mb-7" *ngFor="let event of lsEvent | async | slice:0:4 ;let i = index">
+            <!--begin::Label-->
+            <div class="position-absolute top-0 start-0 rounded h-100
+                bg-secondary w-4px"></div>
+            <!--end::Label-->
+
+            <!--begin::Checkbox-->
+            <div class="form-check form-check-custom form-check-solid ms-6
+                me-4">
+                <img src="\assets\Image\work.png" width="40" height="40" alt="">
+                <!-- <input class="form-check-input" type="checkbox" value=""> -->
+            </div>
+            <!--end::Checkbox-->
+
+            <!--begin::Details-->
+            <div class="fw-semibold">
+                <a href="#" class="fs-6 fw-bold text-gray-900 text-hover-primary"> {{ event.eventName }} </a>
+                <!--begin::Info-->
+                <div class="text-gray-400">
+                    
+                    {{ event.dueDateString }}
+
+                    <!-- {{ dueDateString }} -->
+                    <!-- <a href="#">Karina Clark</a> -->
+                </div>
+                <!--end::Info-->
+            </div>
+            <!--end::Details-->
+        </div>
+    </div>
+    <!--end::Card body-->
+</div>

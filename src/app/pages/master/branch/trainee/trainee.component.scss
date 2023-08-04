@@ -1,0 +1,24 @@
+// .container {
+//   display: flex;
+//   align-items: center;
+// }
+
+.form-control.form-control-solid.form-select-sm.w-150px.ps-9 {
+  margin-right: 20px; /* ปรับขนาดตามที่คุณต้องการ */
+}
+
+.grid-container {
+  display: grid;
+  background-color: #000000;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: #50add8;
+  border: 5px solid #c96513;
+  text-align: center;
+  padding: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #111111
+}

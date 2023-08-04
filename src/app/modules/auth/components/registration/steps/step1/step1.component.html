@@ -1,0 +1,146 @@
+<div class="pb-10 pb-lg-15">
+  <h2 class="fw-bolder d-flex align-items-center text-dark">
+    {{ "AUTH.REGISTER.CREATEACCOUNT" | translate }}
+  </h2>
+</div>
+<!--Email-->
+<div class="fv-row" [formGroup]="form">
+  <div class="row pb-3 pb-lg-5 col-md-11">
+    <label class="form-label fw-bold mb-3 required">
+      {{ "AUTH.INPUT.EMAIL" | translate }}
+    </label>
+    <kendo-textbox
+      type="email"
+      class="form-control-lg form-control-solid custom-fill-mode"
+      [maxlength]="50"
+      [minlength]="3"
+      placeholder="{{ 'AUTH.INPUT.EXAMPLE_EMAIL' | translate }}"
+      formControlName="Email"
+    >
+    </kendo-textbox>
+    <div
+      *ngIf="
+        form.get('Email')?.hasError('required') && form.get('Email')?.touched
+      "
+      class="fv-plugins-message-container invalid-feedback"
+    >
+      {{ "AUTH.VALIDATION.EMAIL_REQUIRED" | translate }}
+    </div>
+    <div
+      *ngIf="
+        form.get('Email')?.hasError('pattern') && form.get('Email')?.touched
+      "
+      class="fv-plugins-message-container invalid-feedback"
+    >
+      {{ "AUTH.VALIDATION.EMAIL_INCORRECT" | translate }}
+    </div>
+  </div>
+  <!--Password-->
+  <div class="fv-row">
+    <div class="row pb-3 pb-lg-5 col-md-11">
+      <span>
+        <label class="form-label fw-bold mb-3">
+          {{ "AUTH.INPUT.PASSWORD" | translate }}
+        </label>
+        <i
+          (click)="toggleShow()"
+          class="fa-solid fa-eye icon"
+          *ngIf="!showpassword"
+        ></i>
+        <i
+          (click)="toggleShow()"
+          class="fa-solid fa-eye-slash icon"
+          *ngIf="showpassword"
+        ></i>
+      </span>
+      <kendo-textbox
+        class="form-control-lg form-control-solid custom-fill-mode"
+        #textbox
+        [maxlength]="16"
+        placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}"
+        formControlName="Password"
+      >
+      </kendo-textbox>
+      <!-- <input
+        type="password"
+        [type]="showpassword ? 'text' : 'password'"
+        class="form-control form-control-lg form-control-solid"
+        placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}"
+        maxlength="16"
+        formControlName="Password"
+      /> -->
+      <div
+        *ngIf="
+          form.get('Password')?.hasError('required') &&
+          form.get('Password')?.touched
+        "
+        class="fv-plugins-message-container invalid-feedback"
+      >
+        {{ "AUTH.VALIDATION.PASSWORD_REQUIRED" | translate }}
+      </div>
+      <div
+        *ngIf="
+          form.get('Password')?.hasError('pattern') &&
+          form.get('Password')?.touched
+        "
+        class="fv-plugins-message-container invalid-feedback"
+      >
+        {{ "AUTH.VALIDATION.PASSWORD_INCORRECT" | translate }}
+      </div>
+    </div>
+    <!--ConfirmPassword-->
+    <div class="pb-3 pb-lg-5">
+      <div class="row pb-3 pb-lg-5 col-md-11">
+        <label class="form-label fw-bold mb-3">
+          {{ "AUTH.INPUT.CONFIRM_PASSWORD" | translate }}</label
+        >
+        <kendo-textbox
+          class="form-control-lg form-control-solid custom-fill-mode"
+          #textbox2
+          [maxlength]="16"
+          placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}"
+          formControlName="ConfirmPassword"
+        >
+        </kendo-textbox>
+        <!-- <input
+          type="password"
+          [type]="showpassword ? 'text' : 'password'"
+          class="form-control form-control-lg form-control-solid"
+          placeholder="{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}"
+          maxlength="16"
+          formControlName="ConfirmPassword"
+        /> -->
+      </div>
+      <!--ConfirmPassword require-->
+      <div
+        *ngIf="
+          form.get('ConfirmPassword')?.hasError('required') &&
+          form.get('ConfirmPassword')?.touched
+        "
+        class="fv-plugins-message-container invalid-feedback"
+      >
+        {{ "AUTH.VALIDATION.CONFIRMPASSWORD_REQUIRED" | translate }}
+      </div>
+      <!--ConfirmPassword Pattern alert-->
+      <div
+        *ngIf="
+          form.get('ConfirmPassword')?.hasError('pattern') &&
+          form.get('ConfirmPassword')?.touched
+        "
+        class="fv-plugins-message-container invalid-feedback"
+      >
+        {{ "AUTH.VALIDATION.CONFIRMPASSWORD_PATTERN" | translate }}
+      </div>
+      <!--ConfirmPassword Match alert-->
+      <div
+        *ngIf="
+          form.get('ConfirmPassword')?.hasError('mustMatch') &&
+          form.get('ConfirmPassword')?.touched
+        "
+        class="fv-plugins-message-container invalid-feedback"
+      >
+        {{ "AUTH.VALIDATION.PASSWORD_MATCH" | translate }}
+      </div>
+    </div>
+  </div>
+</div>

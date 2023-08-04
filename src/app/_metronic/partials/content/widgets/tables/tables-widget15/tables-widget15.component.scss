@@ -1,0 +1,44 @@
+.avatar-container {
+  position: relative;
+  width: fit-content;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.image-container {
+  height: 80px;
+  width: 80px;
+  border: 1px solid black;
+  background-color: #ffffff;
+  background-position: center;
+  background-size: cover;
+}
+
+.right-icon {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  z-index: 1;
+}
+
+.fa {
+  font-size: 1.5em;
+}
+
+.btn-icon {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-icon i {
+  font-size: 1.5em;
+  padding: 0.5em;
+}
+// .fa-chevron-down.rotate {
+//     transform: rotate(180deg);
+//     transition: transform 0.2s ease;
+//   }

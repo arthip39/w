@@ -1,0 +1,50 @@
+.kendo-label {
+  font-size: 16px;
+  color: black;
+}
+.kendo-calendar {
+  width: fit-content;
+}
+.kendo-internyear {
+  width: 300px;
+}
+.kendo-textarea {
+  width: auto;
+}
+.k-primary {
+  background-color: blue;
+}
+.k-label-color {
+  color: white;
+}
+.mat-dialog-container {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-dialog-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.custom-fill-mode {
+  background: #f9f9f9;
+  border-color: #a9a0a0;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  margin-right: 16px; /* Adjust the value based on your design requirements */
+}
+
+.kendo-date-width-limit {
+  width: 200px;
+}
+.kendo-fit-content {
+  width: 150px;
+}

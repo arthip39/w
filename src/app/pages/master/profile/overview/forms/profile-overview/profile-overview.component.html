@@ -1,0 +1,140 @@
+<div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+    <div class="card-header cursor-pointer">
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">{{"AUTH.PROFILE.TITLE" | translate}}</h3>
+      </div>
+  
+      <a
+        routerLink="/master/profile/setting"
+        class="btn btn-primary align-self-center"
+      >
+      {{"ALERT.BUTTON.EDIT_PROFILE" | translate}}
+      </a>
+    </div>
+  
+    <div *ngIf="user$ | async as _user" class="card-body p-9">
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">{{"AUTH.INPUT.FULLNAME_TH" | translate}}</label>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.firstnameTH + "  " + _user.lastnameTH }}</span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="col-lg-3 fw-bold text-muted">{{"AUTH.INPUT.NICKNAME" | translate}}</span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.nickname }} </span>
+        </div>
+  
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">{{"AUTH.INPUT.FULLNAME_ENG" | translate}}</label>
+  
+        <div class="col-lg-3 fv-row">
+          <span class="fw-bold fs-6"> {{ _user.firstnameEng + "  " + _user.lastnameEng  }} </span>
+        </div>
+  
+        <div class="col-lg-3 fv-row">
+          <span class="col-lg-3 fw-bold text-muted">{{"AUTH.INPUT.GENDER.TITLE" | translate}}</span>
+        </div>
+  
+        <div class="col-lg-3 fv-row">
+          <span *ngIf="_user.gender == 'M'" class="fw-bold fs-6"> 
+            {{"AUTH.INPUT.GENDER.MALE" | translate}}
+          </span>
+          <span *ngIf="_user.gender == 'F'" class="fw-bold fs-6"> 
+            {{"AUTH.INPUT.GENDER.FEMALE" | translate}}
+          </span>
+        </div>
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">
+          {{"AUTH.INPUT.DATE_OF_BIRTH" | translate}}
+          
+        </label>
+  
+        <div class="col-lg-3 d-flex align-items-center">
+          <span class="fw-bolder fs-6 me-2"> {{ _user.dateOfBirth | date : "dd/MM/yyyy" }}</span>
+        </div>
+  
+        <div class="col-lg-3 d-flex align-items-center">
+          <span class="col-lg-2 fw-bold text-muted">{{"AUTH.INPUT.PHONE" | translate}}</span>
+          <i
+            class="fas fa-exclamation-circle ms-1 fs-7"
+            data-bs-toggle="tooltip"
+            title="Phone number must be active"
+          ></i>
+        </div>
+  
+        <div class="col-lg-3 d-flex align-items-center">
+          <span class="fw-bolder fs-6 me-2"> {{ _user.phone }} </span>
+        </div>
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">{{"AUTH.INPUT.EMAIL" | translate}}</label>
+  
+        <div class="col-lg-3">
+          <a href="#" class="fw-bold fs-6 text-dark text-hover-primary">
+            {{ _user.email }}
+          </a>
+        </div>
+  
+        <div class="col-lg-3">
+          <a class="col-lg-3 fw-bold text-muted">
+            {{"AUTH.INPUT.SOCIAL.LINE" | translate}}
+          </a>
+        </div>
+  
+        <div class="col-lg-3">
+          <a href="#" class="fw-bold fs-6 text-dark text-hover-primary">
+            {{ _user.line }}
+          </a>
+        </div>
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">
+          {{"AUTH.ADDRESS.PROVINCE" | translate}}
+          <i
+            class="fas fa-exclamation-circle ms-1 fs-7"
+            data-bs-toggle="tooltip"
+            title="Country of origination"
+          ></i>
+        </label>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.province }} </span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="col-lg-3 fw-bold text-muted">{{"AUTH.ADDRESS.DISTRICT" | translate}}</span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.district }} </span>
+        </div>
+      </div>
+  
+      <div class="row mb-7">
+        <label class="col-lg-3 fw-bold text-muted">{{"AUTH.ADDRESS.SUBDISTRICT" | translate}}</label>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.subDistrict }} </span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="col-lg-3 fw-bold text-muted">{{"AUTH.ADDRESS.ZIPCODE" | translate}}</span>
+        </div>
+  
+        <div class="col-lg-3">
+          <span class="fw-bolder fs-6 text-dark"> {{ _user.zipcode }} </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  

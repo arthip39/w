@@ -1,0 +1,518 @@
+<div class="card mb-5 mb-xl-10">
+  <div
+    class="card-header border-0 cursor-pointer"
+    role="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#kt_account_profile_details"
+    aria-expanded="true"
+    aria-controls="kt_account_profile_details">
+    <div class="card-title m-0">
+      <h3 class="fw-bolder m-0">{{"AUTH.PROFILE.TITLE" | translate}}</h3>
+    </div>
+    <!-- routerLink="/master/profile/overview" -->
+
+    <a
+      href="/#/master/profile/overview"
+      class="btn btn-primary align-self-center">
+      {{"ALERT.BUTTON.CANCEL" | translate}}
+    </a>
+  </div>
+  <div id="kt_account_profile_details" class="collapse show">
+    <form novalidate="" class="form" *ngIf="cloneUser  as _user">
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.PROFILE.AVATAR" | translate}}</label>
+          <div class="col-lg-8">
+            <div class="image-input image-input-outline"
+              data-kt-image-input="true" style="background-image:
+              url('/assets/Image/man.png')">
+              <!--begin::Preview existing avatar-->
+              <div *ngIf="imgUrl == ''"
+                class="image-input-wrapper w-125px h-125px"
+                [ngStyle]="{backgroundImage: 'url(' + _user.pictureUrl + ')'}" 
+                ></div>
+                <div *ngIf="imgUrl != ''"
+                class="image-input-wrapper w-125px h-125px"
+                [ngStyle]="{backgroundImage: 'url(' + imgUrl + ')'}" 
+                ></div>
+              <!--end::Preview existing avatar-->
+
+              <!--begin::Label-->
+              <label class="btn btn-icon btn-circle btn-active-color-primary
+                w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                aria-label="Change avatar" data-bs-original-title="Change
+                avatar" data-kt-initialized="1">
+                <i class="bi bi-pencil-fill fs-7"></i>
+
+                <!--begin::Inputs-->
+                <input type="file" name="avatar" accept="image/*" #fileUplod (change)="onFileChange($event)">
+                <input type="hidden" name="avatar_remove" >
+                <!--end::Inputs-->
+              </label>
+              
+              <!--end::Label-->
+
+              <!--begin::Cancel-->
+              <!-- <span class="btn btn-icon btn-circle btn-active-color-primary
+                w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                aria-label="Cancel avatar" data-bs-original-title="Cancel
+                avatar" data-kt-initialized="1">
+                <i class="bi bi-x fs-2"></i>
+              </span> -->
+              <!--end::Cancel-->
+
+              <!-- begin::Remove-->
+              <!-- <span class="btn btn-icon btn-circle btn-active-color-primary
+                w-25px h-25px bg-body shadow"
+                data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                aria-label="Remove avatar" data-bs-original-title="Remove
+                avatar" data-kt-initialized="1">
+                <i class="bi bi-x fs-2"></i>
+              </span> -->
+              <!--end::Remove -->
+            </div>
+            <div class="mt-5 fb-row">
+              <font size="3" color="red" class="required">{{"AUTH.PROFILE.PICTURE" | translate}}</font><br>
+              <font size="2" color="gray">{{"AUTH.PROFILE.ALLOW" | translate}}</font>
+            </div>
+            
+            <!-- <label class="form-text">Allowed file types: png, jpg, jpeg.</label>
+            <label class="form-text">Allowed file types: png, jpg, jpeg.</label> -->
+          </div>
+
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.INPUT.FULLNAME_TH" | translate}}</label>
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-6 fv-row">
+                <kendo-textbox
+                  #firstnameTH="ngModel"
+                  class="form-control form-control-lg form-control-solid mb-3
+                  mb-lg-0"
+                  placeholder='{{"AUTH.INPUT.FIRSTNAME_TH" | translate}}'
+                  pattern="{{ LETTERS_AND_SPACES_PATTERN_TH.source }}"
+                  [maxlength]="80"
+                  [(ngModel)]="_user.firstnameTH"
+                  (valueChange)="checkButton()"
+                  [ngModelOptions]="{standalone: true}"
+                  required>
+                </kendo-textbox>
+                <div *ngIf="firstnameTH.invalid && (firstnameTH.dirty ||
+                  firstnameTH.touched)" >
+                  <div *ngIf="firstnameTH.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+                    | translate}}</div>
+                  <div *ngIf="firstnameTH.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                    | translate}}</div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 fv-row">
+                <kendo-textbox
+                  #lastnameTH="ngModel"
+                  class="form-control form-control-lg form-control-solid mb-3
+                  mb-lg-0"
+                  placeholder='{{"AUTH.INPUT.LASTNAME_TH" | translate}}'
+                  pattern="{{ LETTERS_AND_SPACES_PATTERN_TH.source }}"
+                  [maxlength]="80"
+                  [(ngModel)]='_user.lastnameTH'
+                  (valueChange)="checkButton()"
+                  [ngModelOptions]="{standalone: true}"
+                  required>
+                </kendo-textbox>
+                <div *ngIf="lastnameTH.invalid && (lastnameTH.dirty ||
+                  lastnameTH.touched)" >
+                  <div *ngIf="lastnameTH.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+                    | translate}}</div>
+                  <div *ngIf="lastnameTH.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                    | translate}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.INPUT.FULLNAME_ENG"
+            | translate}}</label>
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-6 fv-row">
+                <kendo-textbox
+                  #firstnameEng="ngModel"
+                  class="form-control form-control-lg form-control-solid mb-3
+                  mb-lg-0"
+                  placeholder='{{"AUTH.INPUT.FIRSTNAME_ENG" | translate}}'
+                  pattern="{{ LETTERS_AND_SPACES_PATTERN_Eng.source }}"
+                  [maxlength]="80"
+                  [(ngModel)]='_user.firstnameEng'
+                  (valueChange)="checkButton()"
+                  [ngModelOptions]="{standalone: true}"
+                  required>
+                </kendo-textbox>
+                <div *ngIf="firstnameEng.invalid && (firstnameEng.dirty ||
+                  firstnameEng.touched)" >
+                  <div *ngIf="firstnameEng.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                  <div *ngIf="firstnameEng.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                    | translate}}</div>
+                </div>
+              </div>
+              <div class="col-lg-6 fv-row">
+                <kendo-textbox
+                  #lastnameEng="ngModel"
+                  class="form-control form-control-lg form-control-solid mb-3
+                  mb-lg-0"
+                  pattern="{{ LETTERS_AND_SPACES_PATTERN_Eng.source }}"
+                  placeholder='{{"AUTH.INPUT.LASTNAME_ENG" | translate}}'
+                  [maxlength]="80"
+                  [(ngModel)]='_user.lastnameEng'
+                  (valueChange)="checkButton()"
+                  [ngModelOptions]="{standalone: true}"
+                  required>
+                </kendo-textbox>
+                <div *ngIf="lastnameEng.invalid && (lastnameEng.dirty ||
+                  lastnameEng.touched)" >
+                  <div *ngIf="lastnameEng.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                  <div *ngIf="lastnameEng.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                    | translate}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.INPUT.NICKNAME" | translate}}</label>
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+              #nickname="ngModel"
+              class="form-control form-control-lg form-control-solid mb-3
+              mb-lg-0"
+              pattern="{{ LETTERS_AND_SPACES_PATTERN_nickname.source }}"
+              placeholder='{{"AUTH.INPUT.NICKNAME" | translate}}'
+              [maxlength]="80"
+              [(ngModel)]='_user.nickname'
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              required>
+            </kendo-textbox>
+            <div *ngIf="nickname.invalid && (nickname.dirty ||
+              nickname.touched)" >
+              <div *ngIf="nickname.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+              <div *ngIf="nickname.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"
+                | translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.INPUT.GENDER.TITLE" | translate}}</label>
+          <div *ngIf="_user.gender == 'M' " class="col-lg-8 fv-row pt-3">
+            <label class="radio-container ">
+              <input type="radio"
+                class="radio-border"
+                id="male"
+                name="gender"
+                checked
+                required
+                value="M"
+                [(ngModel)]="_user.gender"
+                (valueChange)="checkButton()"
+                [ngModelOptions]="{standalone: true}"
+                kendoRadioButton>
+              <kendo-label for="male" class="k-radio-label mx-2"
+                text='{{"AUTH.INPUT.GENDER.MALE" | translate}}'>
+              </kendo-label>
+            </label>
+            <label class="radio-container mx-5">
+              <input type="radio"
+                class="radio-border"
+                id="female"
+                name="gender"
+                value="F"
+                required
+                [(ngModel)]="_user.gender"
+                [ngModelOptions]="{standalone: true}"
+                kendoRadioButton>
+              <kendo-label for="female" class="k-radio-label mx-2"
+                text='{{"AUTH.INPUT.GENDER.FEMALE" | translate}}'>
+              </kendo-label>
+            </label>
+          </div>
+          <div *ngIf="_user.gender == 'F' " class="col-lg-8 fv-row pt-3">
+            <label class="radio-container ">
+              <input type="radio"
+                class="radio-border"
+                id="male"
+                name="gender"
+                value="M"
+                required
+                [(ngModel)]="_user.gender"
+                (valueChange)="checkButton()"
+                [ngModelOptions]="{standalone: true}"
+                kendoRadioButton>
+              <kendo-label for="male" class="k-radio-label mx-2"
+                text='{{"AUTH.INPUT.GENDER.MALE" | translate}}'>
+              </kendo-label>
+            </label>
+            <label class="radio-container mx-5">
+              <input type="radio"
+                class="radio-border"
+                id="female"
+                name="gender"
+                checked
+                value="F"
+                required
+                [(ngModel)]="_user.gender"
+                (valueChange)="checkButton()"
+                [ngModelOptions]="{standalone: true}"
+                kendoRadioButton>
+              <kendo-label for="female" class="k-radio-label mx-2"
+                text='{{"AUTH.INPUT.GENDER.FEMALE" | translate}}'>
+              </kendo-label>
+            </label>
+          </div>
+        </div>
+
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span
+              class="required">{{"AUTH.INPUT.DOB" | translate}}</span></label>
+          <div class="col-lg-8 fv-row">
+            <kendo-datepicker
+              
+              calendarType="classic"
+              [animateCalendarNavigation]="true"
+              class="form-control-lg form-control-solid mb-3 mb-lg-0"
+              format="dd-MM-yyyy"
+              [(ngModel)]="_user.dateOfBirth"
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+
+              >
+            </kendo-datepicker>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span
+              class="required">{{"AUTH.INPUT.PHONE" | translate}}</span></label>
+          <div class="col-lg-8 fv-row">
+            <kendo-maskedtextbox
+              #phone="ngModel"
+              class="form-control form-control-lg form-control-solid"
+              mask="(999)-0000-000"
+              pattern="{{ PHONE.source }}"
+              [(ngModel)]="_user.phone"
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              required>
+            </kendo-maskedtextbox>
+            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+              >
+              <div *ngIf="phone.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+              <div *ngIf="phone.errors?.pattern">{{"AUTH.VALIDATION.INVALID_PHONE" | translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span
+              class="required">{{"AUTH.INPUT.EMAIL" | translate}}</span></label>
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+              #email="ngModel"
+              class="form-control form-control-lg form-control-solid mb-3
+              mb-lg-0"
+              placeholder='{{"AUTH.INPUT.EMAIL" | translate}}'
+              pattern="{{ EMAIL_VALADATOR.source }}"
+              [maxlength]="80"
+              [(ngModel)]='_user.email'
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              required>
+            </kendo-textbox>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)"
+              >
+              <div *ngIf="email.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+              <div *ngIf="email.errors?.pattern">{{"AUTH.VALIDATION.EMAIL_INCORRECT"
+                | translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span>{{"AUTH.INPUT.SOCIAL.TITLELINE" | translate}}</span></label>
+          <div class="col-lg-8 fv-row">
+            <kendo-textbox
+              #line="ngModel"
+              class="form-control form-control-lg form-control-solid mb-3
+              mb-lg-0"
+              placeholder='{{"AUTH.INPUT.SOCIAL.LINE" | translate}}'
+              pattern="{{ LINE_VALADATOR.source }}"
+              [maxlength]="80"
+              [(ngModel)]='_user.line'
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}">
+            </kendo-textbox>
+            <div *ngIf="line.invalid && (line.dirty || line.touched)"
+              >
+              <div *ngIf="line.errors?.pattern">{{"AUTH.VALIDATION.INVALID_LINE"
+                | translate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"><span
+              class="required">{{"AUTH.ADDRESS.PROVINCE" | translate}}</span></label>
+          <div class="col-lg-8 fv-row">
+            <kendo-dropdownlist
+              #province="ngModel"
+              [data]="lsProvince"
+              [(ngModel)]="_user.provinceId"
+
+              class="form-control-lg form-control-solid mb-3 mb-lg-0"
+              [defaultItem]="{
+              label: '-- Select Province --',
+              value: ''
+              }"
+              textField="label"
+              valueField="value"
+              required
+              [valuePrimitive]="true"
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              (valueChange)="_user.districtId= '' || _user.subdistrictId= '' ">
+            </kendo-dropdownlist>
+            <div *ngIf="province.invalid && (province.dirty ||
+              province.touched)" >
+              <div *ngIf="province.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+            </div>
+            <!-- {{ _user.provinceId }} -->
+
+            <!-- <div *ngIf="
+            form.get('Province')?.hasError('required') &&
+            form.get('Province')?.touched "
+            class="fv-plugins-message-container invalid-feedback"
+        >
+          {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+        </div> -->
+          </div>
+        </div>
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.ADDRESS.DISTRICT" | translate}}</label>
+          <div class="col-lg-8 fv-row">
+            <kendo-dropdownlist
+              #district="ngModel"
+              [data]="lsDistrict(_user.provinceId)"
+              [(ngModel)]="_user.districtId"
+              [disabled]="_user.provinceId == '' || _user.provinceId == null "
+              class="form-control-lg form-control-solid mb-3 mb-lg-0"
+              [defaultItem]="{
+              label: '-- Select District --',
+              value: ''
+              }"
+              textField="label"
+              valueField="value"
+              required
+              [valuePrimitive]="true"
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              (valueChange)="_user.subdistrictId= ''">
+            </kendo-dropdownlist>
+            <div *ngIf="district.invalid && (district.dirty ||
+              district.touched)" >
+              <div *ngIf="district.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+            </div>
+            <!-- {{  _user.districtId }} -->
+
+          </div>
+        </div>
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.ADDRESS.SUBDISTRICT" | translate}}</label>
+          <div class="col-lg-8 fv-row">
+            <kendo-dropdownlist
+              #subdistrict="ngModel"
+              [data]="lsSubDistrict(_user.districtId)"
+              [(ngModel)]="_user.subdistrictId"
+              [disabled]="_user.districtId == '' || _user.districtId == null"
+              class="form-control-lg form-control-solid mb-3 mb-lg-0"
+              [defaultItem]="{
+              label: '-- Select Subdistrict --',
+              value: ''
+              }"
+              textField="label"
+              valueField="value"
+              required
+              [valuePrimitive]="true"
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}">
+            </kendo-dropdownlist>
+            <div *ngIf="subdistrict.invalid && (subdistrict.dirty ||
+              subdistrict.touched)" >
+              <div *ngIf="subdistrict.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+            </div>
+            <!-- {{  _user.subdistrictId }} -->
+
+          </div>
+
+        </div>
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6">{{"AUTH.ADDRESS.ZIPCODE" | translate}}</label>
+          <div class="col-lg-8 fv-row">
+            <kendo-maskedtextbox
+              #zipcode="ngModel"
+              class="form-control form-control-lg form-control-solid"
+              mask="00000"
+              pattern="{{ ZIPCODE.source }}"
+              [(ngModel)]="_user.zipcode"
+              (valueChange)="checkButton()"
+              [ngModelOptions]="{standalone: true}"
+              required>
+            </kendo-maskedtextbox>
+            <div *ngIf="zipcode.invalid && (zipcode.dirty || zipcode.touched)"
+              >
+              <div *ngIf="zipcode.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+              <div *ngIf="zipcode.errors?.pattern">{{"AUTH.VALIDATION.INVALID_ZIPCODE" | translate}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6">{{"AUTH.ADDRESS.ADDRESS" | translate}}</label>
+          <div class="col-lg-8 fv-row">
+            <kendo-textarea
+            class="form-control form-control-lg form-control-solid"
+            [rows]="5"
+            [(ngModel)]="_user.addressDescription"
+            [ngModelOptions]="{standalone: true}"
+            (valueChange)="checkButton()"
+            >
+
+            </kendo-textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button 
+          type="button"
+          class="btn btn-success"
+          [disabled]="isLoading || saveDisable"
+          (click)="saveSettings()"
+          >
+          
+          <ng-container *ngIf="!isLoading">{{"ALERT.BUTTON.SAVE" | translate}}</ng-container>
+          <ng-container *ngIf="isLoading" >
+            <span class="indicator-progress" [style.display]="'block'">
+              {{"ALERT.BUTTON.WAIT" | translate}}
+              <span 
+                class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+          </ng-container>
+        </button>
+        
+
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,237 @@
+<div class="card mb-5 mb-xl-10">
+    <div
+      class="card-header border-0 cursor-pointer"
+      role="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#kt_account_profile_details"
+      aria-expanded="true"
+      aria-controls="kt_account_profile_details">
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">{{"AUTH.ABILITY.TITLE_LANGUAGE" | translate}}</h3>
+      </div>
+      <a
+        href="/#/master/profile/overview"
+        class="btn btn-primary align-self-center">
+        {{"ALERT.BUTTON.CANCEL" | translate}}
+      </a>
+    </div>
+    <div id="kt_account_profile_details" class="collapse show">
+      <form novalidate="" class="form" >
+        <div class="card-body border-top p-9">
+          <div class="mx-20">
+            <label class="col-lg-5 col-form-label required fw-bold
+                fs-6">{{"AUTH.ABILITY.LANGUAGE" | translate}}</label>
+            <label class="col-lg-7 col-form-label required fw-bold
+                fs-6">{{"AUTH.ABILITY.LANGUAGELEVEL" | translate}}</label>
+            <div class="row pt-4" *ngFor="let language of lsUser | async ;
+                let i= index">
+                <div class="col-lg-5">
+                    <div class="col-lg-10 fv-row">
+                        <kendo-textbox
+                            #languageControl="ngModel"
+                            class="form-control form-control-lg
+                            form-control-solid mb-3 mb-lg-0"
+                            placeholder="languages"
+                            pattern="{{ LETTERS_AND_SPACES_PATTERN.source }}"
+                            [(ngModel)]="language.name"
+                            (valueChange)="onValueChange(language)"
+                            [ngModelOptions]="{standalone: true}"
+                            required>
+                        </kendo-textbox>
+                        <div *ngIf="languageControl.invalid && (languageControl.dirty ||
+                            languageControl.touched)" >
+                            <div *ngIf="languageControl.errors?.required">{{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}</div>
+                            <div *ngIf="languageControl.errors?.pattern">{{"AUTH.VALIDATION.CHARACTER_FIELD"| translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div *ngIf="language.score == '4'" class="col-lg-12
+                        fv-row pt-4">
+                        <input type="radio" name="score{{i}}" value="4"
+                            #Verygood kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required checked>
+                        <kendo-label [for]="Verygood" text="Very good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="3"
+                            #Good kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Good" text="Good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="2"
+                            #Medium kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Medium" text="Medium"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="1"
+                            #Fairly kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Fairly" text="Fairly"></kendo-label>
+                        <kendo-button class="mx-10" *ngIf="i!=0"
+                            (click)="deleteTask(i,language)">
+                            <span id="boot-icon" class="bi bi-x"
+                                style="font-size: 13px;
+                                -webkit-text-stroke-width: 2px; border:
+                                hidden; color: rgb(255, 0, 0);"></span>
+                        </kendo-button>
+                    </div>
+                    <div *ngIf="language.score == '3'" class="col-lg-12
+                        fv-row pt-4">
+                        <input type="radio" name="score{{i}}" value="4"
+                            #Verygood kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Verygood" text="Very good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="3"
+                            #Good kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required checked>
+                        <kendo-label [for]="Good" text="Good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="2"
+                            #Medium kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Medium" text="Medium"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="1"
+                            #Fairly kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Fairly" text="Fairly"></kendo-label>
+                        <kendo-button class="mx-10" *ngIf="i!=0"
+                            (click)="deleteTask(i,language)">
+                            <span id="boot-icon" class="bi bi-x"
+                                style="font-size: 13px;
+                                -webkit-text-stroke-width: 2px; border:
+                                hidden; color: rgb(255, 0, 0);"></span>
+                        </kendo-button>
+                    </div>
+                    <div *ngIf="language.score == '2'" class="col-lg-12
+                        fv-row pt-4">
+                        <input type="radio" name="score{{i}}" value="4"
+                            #Verygood kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Verygood" text="Very good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="3"
+                            #Good kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Good" text="Good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="2"
+                            #Medium kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required checked>
+                        <kendo-label [for]="Medium" text="Medium"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="1"
+                            #Fairly kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Fairly" text="Fairly"></kendo-label>
+                        <kendo-button class="mx-10" *ngIf="i!=0"
+                            (click)="deleteTask(i,language)">
+                            <span id="boot-icon" class="bi bi-x"
+                                style="font-size: 13px;
+                                -webkit-text-stroke-width: 2px; border:
+                                hidden; color: rgb(255, 0, 0);"></span>
+                        </kendo-button>
+                    </div>
+                    <div *ngIf="language.score == '1'" class="col-lg-12
+                        fv-row pt-4">
+                        <input type="radio" name="score{{i}}" value="4"
+                            #Verygood kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Verygood" text="Very good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="3"
+                            #Good kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Good" text="Good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="2"
+                            #Medium kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Medium" text="Medium"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="1"
+                            #Fairly kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required checked>
+                        <kendo-label [for]="Fairly" text="Fairly"></kendo-label>
+                        <kendo-button class="mx-10" *ngIf="i!=0"
+                            (click)="deleteTask(i,language)">
+                            <span id="boot-icon" class="bi bi-x"
+                                style="font-size: 13px;
+                                -webkit-text-stroke-width: 2px; border:
+                                hidden; color: rgb(255, 0, 0);"></span>
+                        </kendo-button>
+                    </div>
+                    <div *ngIf="language.score == '' || language.score ==
+                        null" class="col-lg-12 fv-row pt-4">
+                        <input type="radio" name="score{{i}}" value="4"
+                            #Verygood kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Verygood" text="Very good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="3"
+                            #Good kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Good" text="Good"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="2"
+                            #Medium kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required>
+                        <kendo-label [for]="Medium" text="Medium"></kendo-label>
+                        <input type="radio" name="score{{i}}" value="1"
+                            #Fairly kendoRadioButton class="mx-3
+                            radio-border" [(ngModel)]="language.score" (ngModelChange)="onValueChange(language)"
+                            required checked>
+                        <kendo-label [for]="Fairly" text="Fairly"></kendo-label>
+                        <kendo-button class="mx-10" *ngIf="i!=0"
+                            (click)="deleteTask(i,language)">
+                            <span id="boot-icon" class="bi bi-x"
+                                style="font-size: 13px;
+                                -webkit-text-stroke-width: 2px; border:
+                                hidden; color: rgb(255, 0, 0);"></span>
+                        </kendo-button>
+                    </div>
+
+                </div>
+                <!-- {{ lsUser | async | json }} -->
+            </div>
+
+            <div class="row pt-4">
+                <div class="col-md-3" *ngIf="lsUser | async as _user">
+                    <button class="btn btn-primary btn-sm"
+                        [disabled]="_user.length>= 5"
+                        (click)="addNewTask()">{{"ALERT.BUTTON.NEWTASK"
+                        | translate}}</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end py-6 px-9">
+          <button 
+            type="button"
+            class="btn btn-success"
+            [disabled]="isLoading || saveDisable"
+            (click)="saveSettings()"
+            >
+            
+            <ng-container *ngIf="!isLoading">{{"ALERT.BUTTON.SAVE" | translate}}</ng-container>
+            <ng-container *ngIf="isLoading" >
+              <span class="indicator-progress" [style.display]="'block'">
+                {{"ALERT.BUTTON.WAIT" | translate}}
+                <span 
+                  class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+            </ng-container>
+          </button>
+          
+  
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,49 @@
+<div class="d-flex flex-wrap flex-stack mb-6">
+    <h1 class="fw-bolder my-2">
+        Teams Members
+        <!-- <span class="fs-6 text-gray-400 fw-bold ms-1">Active</span> -->
+    </h1>
+
+    <div class="d-flex flex-wrap my-2">
+        <!-- <div class="me-4">
+            <kendo-dropdownlist
+                class="dropdown-active"
+                [data]="[{
+                label:'InActive',
+                value:'InActive'
+                }]"
+                [defaultItem]="{
+                label:'Active',
+                value:'Active'
+                }"
+                textField="label"
+                valueField="value"
+                required
+                (valueChange)="changeActive($event)"
+                [valuePrimitive]="true">
+
+            </kendo-dropdownlist>
+        </div> -->
+        <a
+            routerLink="/master/branch/eventsetting"
+            class="btn btn-primary btn-sm cursor-pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#kt_modal_create_project">
+            New Team
+        </a>
+    </div>
+</div>
+
+<div class="row" >
+    <!-- begin::Col -->
+    <div class="col-lg-6" *ngFor="let item of team | async">
+        <app-tables-widget3
+            class="card card-xl-stretch mb-xl-8"
+            [title]="item.name"
+            
+            >
+        </app-tables-widget3>
+    </div>
+    <!-- end::Col -->
+
+</div>

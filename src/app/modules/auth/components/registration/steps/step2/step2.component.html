@@ -1,0 +1,320 @@
+<div class="pb-10 pb-lg-15">
+  <h2 class="fw-bolder text-dark">{{"AUTH.PROFILE.TITLE" | translate}}</h2>
+  <div [formGroup]="form">
+    <div class="d-flex flex-column align-items-center text-center">
+      <div class="avatar-container">
+        <!-- [ngClass]="{'': !!( imgUrl?? 'http://cdn.onlinewebfonts.com/svg/img_329115.png')}" -->
+        <div  class="image-container box-shadow-avatar"
+          [ngStyle]="{backgroundImage: 'url(' + imgUrl + ')'}">
+        </div>
+        <ng-template #placeholder>
+          <div class="image-container avatar-placeholder">
+          </div>
+        </ng-template>
+        <label for="avatar-input-file">
+          <div class="icon-wrapper">
+            <input type="file" id="avatar-input-file" accept="image/*" #fileUplod
+              (change)="onFileChange($event)" />
+            <mat-icon class="icon" fontIcon="edit"></mat-icon>
+          </div>
+        </label>
+        <div *ngIf="form.get('Photoprofile')?.invalid &&
+          (form.get('Photoprofile')?.dirty ||
+          form.get('Photoprofile')?.touched)" class="text-danger">
+          <div *ngIf="form.get('Photoprofile')?.errors?.required &&
+            form.get('Photoprofile')?.hasError('required')">{{"AUTH.VALIDATION.REQUIRED_FIELD"
+            | translate}}</div>
+        </div>
+      </div>
+      <div class="mb-10 fb-row">
+        <font size="3" color="red" class="required">{{"AUTH.PROFILE.PICTURE" |
+          translate}}</font><br>
+        <font size="3" color="gray">{{"AUTH.PROFILE.ALLOW" | translate}}</font>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-5">
+        <label class="form-label mb-3 required">{{"AUTH.INPUT.FIRSTNAME_TH" |
+          translate}}</label>
+        <kendo-textbox
+          class="form-control-lg form-control-solid custom-fill-mode"
+          formControlName="firstNameTH"
+          placeholder='{{"AUTH.INPUT.FIRSTNAME_TH" | translate}}'
+          [clearButton]="true"
+          [maxlength]="80"
+          >
+          </kendo-textbox>
+        <div *ngIf="form.get('firstNameTH')?.hasError('required') &&
+          form.get('firstNameTH')?.touched" class="fv-plugins-message-container
+          invalid-feedback">
+          {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['firstNameTH'].errors?.maxlength) &&
+          (form.controls['firstNameTH'].touched &&
+          !form.controls['firstNameTH'].errors?.pattern)">
+          {{"AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['firstNameTH'].errors?.pattern) &&
+          form.controls['firstNameTH'].touched">
+          {{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}
+        </div>
+      </div>
+      <div class="col-md-6 mb-5">
+        <label class="form-label mb-3 required">
+          {{"AUTH.INPUT.LASTNAME_TH" | translate}}</label>
+        <kendo-textbox
+        class="form-control-lg form-control-solid custom-fill-mode"
+        formControlName="lastNameTH"
+        placeholder='{{"AUTH.INPUT.LASTNAME_TH" | translate}}'
+        [clearButton]="true"
+        [maxlength]="80"
+        >
+        </kendo-textbox>
+        <div *ngIf="form.get('lastNameTH')?.hasError('required') &&
+          form.get('lastNameTH')?.touched" class="fv-plugins-message-container
+          invalid-feedback">
+          {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['lastNameTH'].errors?.maxlength) &&
+          (form.controls['lastNameTH'].touched &&
+          !form.controls['lastNameTH'].errors?.pattern)">
+          {{"AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['lastNameTH'].errors?.pattern) &&
+          form.controls['lastNameTH'].touched">
+          {{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-5">
+        <label class="form-label mb-3 required">{{"AUTH.INPUT.FIRSTNAME_ENG" |
+          translate}}</label>
+        <kendo-textbox
+        formControlName="firstNameEng"  
+        class="form-control-lg form-control-solid custom-fill-mode" 
+        placeholder='{{"AUTH.INPUT.FIRSTNAME_ENG" | translate}}'
+        [clearButton]="true"
+        [maxlength]="80"
+        >
+        </kendo-textbox>
+        <div *ngIf="form.get('firstNameEng')?.hasError('required') &&
+          form.get('firstNameEng')?.touched" class="fv-plugins-message-container
+          invalid-feedback">
+          {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['firstNameEng'].errors?.maxlength) &&
+          (form.controls['firstNameEng'].touched &&
+          !form.controls['firstNameEng'].errors?.pattern)">
+          {{"AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['firstNameEng'].errors?.pattern) &&
+          form.controls['firstNameEng'].touched">
+          {{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}
+        </div>
+      </div>
+      <div class="col-md-6 mb-5">
+        <label class="form-label mb-3 required">{{"AUTH.INPUT.LASTNAME_ENG" |
+          translate}}</label>
+        <kendo-textbox
+        formControlName="lastNameEng"
+        class="form-control-lg form-control-solid custom-fill-mode"
+        placeholder='{{"AUTH.INPUT.LASTNAME_ENG" | translate}}'
+        [clearButton]="true"
+        [maxlength]="80"
+        >
+        </kendo-textbox>
+        <div *ngIf="form.get('lastNameEng')?.hasError('required') &&
+          form.get('lastNameEng')?.touched" class="fv-plugins-message-container
+          invalid-feedback">
+          {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['lastNameEng'].errors?.maxlength) &&
+          (form.controls['lastNameEng'].touched &&
+          !form.controls['lastNameEng'].errors?.pattern)">
+          {{"AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['lastNameEng'].errors?.pattern) &&
+          form.controls['lastNameEng'].touched">Last
+          {{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-5">
+        <label class="form-label mb-3 required">{{"AUTH.INPUT.NICKNAME" |
+          translate}}</label>
+        <kendo-textbox
+        formControlName="nickName"
+        class="form-control-lg form-control-solid custom-fill-mode"
+        placeholder='{{"AUTH.INPUT.NICKNAME" | translate}}'
+        [clearButton]="true"
+        [maxlength]="40"
+        >
+        </kendo-textbox>
+        <div *ngIf="form.get('nickName')?.hasError('required') &&
+          form.get('nickName')?.touched" class="fv-plugins-message-container
+          invalid-feedback">
+          {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['nickName'].errors?.maxlength) &&
+          (form.controls['nickName'].touched &&
+          !form.controls['nickName'].errors?.pattern)">
+          {{"AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['nickName'].errors?.pattern) &&
+          form.controls['nickName'].touched">
+          {{"AUTH.VALIDATION.CHARACTER_FIELD" | translate}}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label mb-2 required">{{"AUTH.INPUT.GENDER.TITLE" |
+          translate}}</label>
+        <div class="pt-6">
+          <label class="radio-container ">
+            <input type="radio"
+              class="radio-border"
+              id="male"
+              name="gender"
+              value="M"
+              formControlName="gender"
+              required
+              kendoRadioButton>
+            <kendo-label for="male" class="k-radio-label mx-2" 
+            text='{{"AUTH.INPUT.GENDER.MALE" | translate}}'>
+          </kendo-label>
+          </label>
+          <label class="radio-container mx-5">
+            <input type="radio"
+              class="radio-border"
+              id="female"
+              name="gender"
+              value="F"
+              formControlName="gender"
+              required
+              kendoRadioButton>
+            <kendo-label for="female" class="k-radio-label mx-2" 
+            text='{{"AUTH.INPUT.GENDER.FEMALE" | translate}}'>
+          </kendo-label>
+          </label>
+          <div class="form-text text-danger mx-5"
+            *ngIf="(form.controls['gender'].errors?.required) &&
+            form.controls['gender'].touched">
+            {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-6 mb-5">
+        <label class="form-label mb-3 required">{{"AUTH.INPUT.DATE_OF_BIRTH" |
+          translate}}</label>
+        <!-- <kendo-datepicker 
+        formControlName="dateOfBrith"
+        class="form-control form-control-lg form-control-solid"
+        [value]="value">
+
+        </kendo-datepicker> -->
+        <!-- <kendo-datepicker
+        formControlName="dateOfBrith"
+        class="form-control form-control-lg form-control-solid"
+        [(value)]="value"
+        >
+
+        </kendo-datepicker> -->
+        <kendo-datepicker
+          formControlName="DateOfBirth"
+          calendarType="classic"
+          [animateCalendarNavigation]="true"
+          class="form-control-lg form-control-solid custom-fill-mode"
+          format="dd/MM/yyyy"
+          >
+
+        </kendo-datepicker>
+        <!-- <input formControlName="dateOfBrith" type="date" class="form-control
+          form-control-lg form-control-solid" /> -->
+        <div *ngIf="form.get('DateOfBirth')?.hasError('required') &&
+          form.get('DateOfBirth')?.touched"
+          class="fv-plugins-message-container invalid-feedback">
+          {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-5">
+        <label class="form-label mb-3 required">{{"AUTH.INPUT.PHONE" |
+          translate}}</label>
+        <kendo-maskedtextbox
+          class="form-control-lg form-control-solid custom-fill-mode"
+          mask="(999)-0000-000"
+          formControlName="phoneNumber">
+        </kendo-maskedtextbox>
+        <!-- <input formControlName="phoneNumber" type="text" class="form-control
+          form-control-lg form-control-solid" placeholder='{{"AUTH.INPUT.PHONE" | translate}}'/> -->
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['phoneNumber'].errors?.required) &&
+          form.controls['phoneNumber'].touched">
+          {{"AUTH.VALIDATION.REQUIRED_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['phoneNumber'].errors?.minlength ||
+          form.controls['phoneNumber'].errors?.maxlength) &&
+          (form.controls['phoneNumber'].touched &&
+          !form.controls['phoneNumber'].errors?.pattern)">
+          {{"AUTH.VALIDATION.INVALID_PHONE" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['phoneNumber'].errors?.pattern) &&
+          form.controls['phoneNumber'].touched">
+          {{"AUTH.VALIDATION.INTEGERS_FIELD" | translate}}
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+
+      <label class="form-label mb-3">{{"AUTH.INPUT.SOCIAL.TITLE" | translate}}</label>
+      <div class="col-md-1 pt-2">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/LINE_New_App_Icon_%282020-12%29.png/800px-LINE_New_App_Icon_%282020-12%29.png"
+          width="40" height="40" style="transform: translateX(5px);">
+      </div>
+      <div class="col-md-11">
+        <kendo-textbox
+        formControlName="lineAccountId"
+        class="form-control-lg form-control-solid custom-fill-mode"
+        placeholder='{{"AUTH.INPUT.SOCIAL.LINE" | translate}}'
+        [clearButton]="true"
+        [maxlength]="50"
+        >
+        </kendo-textbox>
+        <!-- <input formControlName="lineAccountId" type="text" class="form-control
+          form-control-lg form-control-solid " placeholder='{{"AUTH.INPUT.SOCIAL.LINE" | translate}}'> -->
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['lineAccountId'].errors?.maxlength) &&
+          (form.controls['lineAccountId'].touched &&
+          !form.controls['lineAccountId'].errors?.pattern)">
+          {{"AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate}}
+        </div>
+        <div class="form-text text-danger"
+          *ngIf="(form.controls['lineAccountId'].errors?.pattern) &&
+          form.controls['lineAccountId'].touched">
+          {{"AUTH.VALIDATION.INVALID_LINE" | translate}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

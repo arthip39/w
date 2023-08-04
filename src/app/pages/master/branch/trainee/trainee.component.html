@@ -1,0 +1,248 @@
+<!-- <div class="d-flex flex-wrap flex-stack mb-6">
+  <h3 class="fw-bolder my-2">
+      Trainee Member (6)
+  </h3>
+  <div class="d-flex flex-wrap my-2">
+        <a
+            [routerLink]="['/master/branch',id,'traineesetting']"
+            class="btn btn-primary btn-sm cursor-pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#kt_modal_create_project">
+            Edit
+        </a>
+</div></div> -->
+
+
+<div *ngIf="user$ | async as _user" class="card card-flush mt-6 mt-xl-9"> <!-- ����觴֧�����Ũҡ table user -->
+    <!--begin::Card header-->
+    <div class="card-header mt-5">
+        <!--begin::Card title-->
+        <div class="card-title flex-column">
+            <h3 class="fw-bold mb-1">Teams Trainee</h3>
+        </div>
+        <!--begin::Card title-->
+        <!--begin::Search-->
+
+        <div class="d-flex align-items-center position-relative my-1">
+            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-3"><span class="path1"></span><span
+                    class="path2"></span></i>
+            <input type="text" id="kt_filter_search" class="form-control form-control-solid form-select-sm w-150px ps-9"
+                placeholder="Search Trainee" />
+            <a [routerLink]="['/master/branch', id, 'traineesetting']" class="btn btn-primary btn-sm cursor-pointer"
+                data-bs-toggle="modal" data-bs-target="#kt_modal_create_project">
+                Search
+            </a>
+        </div>
+        <!--end::Search-->
+    </div>
+
+    <!--begin::Card toolbar-->
+</div>
+<!--end::Card header-->
+
+<!--begin::Card body-->
+<div class="card-body pt-0">
+    <!--begin::Table container-->
+    <div class="table-responsive">
+        <!--begin::Table-->
+        <div id="kt_profile_overview_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="table-responsive">
+                <table id="kt_profile_overview_table"
+                    class="table table-row-bordered table-row-dashed gy-4 align-middle fw-bold dataTable no-footer">
+                    <thead class="fs-7 text-gray-400 text-uppercase">
+                        <tr>
+                            <th class="min-w-50px sorting" tabindex="0" aria-controls="kt_profile_overview_table"
+                                rowspan="1" colspan="1" aria-label="Manager: activate to sort column ascending"
+                                style="width: 360px">
+                                {{"AUTH.INPUT.FULLNAME_ENG" | translate}}
+                            </th>
+                            <th class="min-w-50px sorting" tabindex="0" aria-controls="kt_profile_overview_table"
+                                rowspan="1" colspan="1" aria-label="Date: activate to sort column ascending"
+                                style="width: 190px">
+                                {{"AUTH.INPUT.NICKNAME" | translate}}
+                            </th>
+                            <th class="min-w-50px sorting" tabindex="0" aria-controls="kt_profile_overview_table"
+                                rowspan="1" colspan="1" aria-label="Amount: activate to sort column ascending"
+                                style="width: 190px">
+                                Internship Code
+                            </th>
+                            <th class="min-w-50px sorting" tabindex="0" aria-controls="kt_profile_overview_table"
+                                rowspan="1" colspan="1" aria-label="Details: activate to sort column ascending"
+                                style="width: 190px">
+                                Hire Strat Date
+                            </th>
+                            <th class="min-w-50px sorting" tabindex="0" aria-controls="kt_profile_overview_table"
+                                rowspan="1" colspan="1" aria-label="Details: activate to sort column ascending"
+                                style="width: 190px">
+                                Hire Due Date
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="fs-5">
+                        <tr class="odd">
+                            <td>
+                                <!--begin::User-->
+                                <div class="d-flex align-items-center">
+                                    <!--begin::Wrapper-->
+                                    <div class="me-5 position-relative">
+                                        <!--begin::Avatar-->
+                                        <div class="symbol symbol-35px symbol-circle">
+                                            <span class="symbol-label bg-light-warning text-warning fw-semibold">
+                                                A
+                                            </span>
+                                        </div>
+                                        <!--end::Avatar-->
+                                    </div>
+                                    <!--end::Wrapper-->
+
+                                    <!--begin::Info-->
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <a [routerLink]="['/master/branch', id, 'traineesetting']"
+                                            class="fs-6 text-gray-800 text-hover-primary"></a>
+
+                                        <div class="fw-semibold text-gray-400">
+                                            Software Developers
+                                        </div>
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::User-->
+                            </td>
+                            <td>Dear</td>
+                            <td>EX390121</td>
+                            <td>
+                                <div class="d-flex flex-column justify-content-center">
+                            <td>12-02-66</td>
+
+                            <div class="fw-semibold text-gray-400">
+                                DD-MM-YY
+                            </div>
+                            <!--end::enddate-->
+            </div>
+            </td>
+            <!--end::startdate-->
+            <td>
+                <div class="d-flex flex-column justify-content-center">
+            <td>27-12-66</td>
+
+            <div class="fw-semibold text-gray-400">
+                DD-MM-YY
+            </div>
+            <!--end::enddate-->
+        </div>
+        </td>
+        <!--end::enddate-->
+        <td class="text-end">
+            <!-- <a href="#" class="btn btn-light btn-sm">Delete</a> -->
+            <button class="btn"><i class="fa fa-trash"></i></button>
+        </td>
+        </tr>
+
+        <tr class="even">
+            <td>
+                <!--begin::User-->
+                <div class="d-flex align-items-center">
+                    <!--begin::Wrapper-->
+                    <div class="me-5 position-relative">
+                        <!--begin::Avatar-->
+                        <div class="symbol symbol-35px symbol-circle">
+                            <span class="symbol-label bg-light-danger text-danger fw-semibold">
+                                P
+                            </span>
+                        </div>
+                        <!--end::Avatar-->
+
+                        <!--begin::Online-->
+                        <div
+                            class="bg-success position-absolute h-8px w-8px rounded-circle translate-middle start-100 top-100 ms-n1 mt-n1">
+                        </div>
+                        <!--end::Online-->
+                    </div>
+                    <!--end::Wrapper-->
+
+                    <!--begin::Info-->
+                    <div class="d-flex flex-column justify-content-center">
+                        <a [routerLink]="['/master/branch', id, 'traineesetting']"
+                            class="fs-6 text-gray-800 text-hover-primary">Pongpak Bunnam</a>
+
+                        <div class="fw-semibold text-gray-400">
+                            SA Dev
+                        </div>
+                    </div>
+                    <!--end::Info-->
+                </div>
+                <!--end::User-->
+            </td>
+            <td>Max</td>
+            <td>EX12031</td>
+            <td>
+                <div class="d-flex flex-column justify-content-center">
+            <td>31-12-66</td>
+
+            <div class="fw-semibold text-gray-400">
+                DD-MM-YY
+            </div>
+            <!--end::enddate-->
+    </div>
+    </td>
+    <!--end::startdate-->
+    <td>
+        <div class="d-flex flex-column justify-content-center">
+    <td>31-12-66</td>
+
+    <div class="fw-semibold text-gray-400">
+        DD-MM-YY
+    </div>
+    <!--end::enddate-->
+</div>
+</td>
+<!--end::enddate-->
+<td class="text-end">
+    <!-- <a href="#" class="btn btn-light btn-sm">Delete</a> -->
+    <button class="btn"><i class="fa fa-trash"></i></button>
+</td>
+</tr>
+</tbody>
+</table>
+
+<br />
+
+<div class="row">
+    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+        <!-- <div class="dataTables_length" id="kt_profile_overview_table_length"><label><select
+                                  name="kt_profile_overview_table_length" aria-controls="kt_profile_overview_table"
+                                  class="form-select form-select-sm form-select-solid">
+                                  <option value="10">10</option>
+                                  <option value="25">25</option>
+                                  <option value="50">50</option>
+                                  <option value="100">100</option>
+                              </select></label></div> -->
+    </div>
+    <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+        <div class="dataTables_paginate paging_simple_numbers" id="kt_profile_overview_table_paginate">
+            <ul class="pagination">
+                <li class="paginate_button page-item previous disabled" id="kt_profile_overview_table_previous">
+                    <a href="#" aria-controls="kt_profile_overview_table" data-dt-idx="0" tabindex="0"
+                        class="page-link"><i class="previous"></i></a>
+                </li>
+                <li class="paginate_button page-item active">
+                    <a href="#" aria-controls="kt_profile_overview_table" data-dt-idx="1" tabindex="0"
+                        class="page-link">1</a>
+                </li>
+                <li class="paginate_button page-item">
+                    <a href="#" aria-controls="kt_profile_overview_table" data-dt-idx="2" tabindex="0"
+                        class="page-link">2</a>
+                </li>
+                <li class="paginate_button page-item">
+                    <a href="#" aria-controls="kt_profile_overview_table" data-dt-idx="3" tabindex="0"
+                        class="page-link">3</a>
+                </li>
+                <li class="paginate_button page-item next" id="kt_profile_overview_table_next">
+                    <a href="#" aria-controls="kt_profile_overview_table" data-dt-idx="4" tabindex="0"
+                        class="page-link"><i class="next"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
